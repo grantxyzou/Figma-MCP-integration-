@@ -148,61 +148,131 @@ const FluentImporter = React.lazy(() =>
 
 function App() {
   const [currentView, setCurrentView] = useState<'azure' | 'dashboard' | 'fluent' | 'importer' | 'test' | 'storage'>('test')
+  const [navVisible, setNavVisible] = useState(true)
 
   const views = [
-    { key: 'test', label: '🔧 Debug Test', icon: '🔧' },
-    { key: 'fluent', label: '🎨 Fluent Demo', icon: '🎨' },
-    { key: 'importer', label: '📦 Component Importer', icon: '📦' },
-    { key: 'dashboard', label: '📊 Dashboard', icon: '📊' },
-    { key: 'azure', label: '🔷 Azure Form', icon: '🔷' },
-    { key: 'storage', label: '🗂️ Storage Assignment', icon: '🗂️' }
+    { key: 'test', label: 'Debug Test', icon: '🔧' },
+    { key: 'fluent', label: 'Fluent Demo', icon: '🎨' },
+    { key: 'importer', label: 'Component Importer', icon: '📦' },
+    { key: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { key: 'azure', label: 'Azure Form', icon: '🔷' },
+    { key: 'storage', label: 'Storage Assignment', icon: '🗂️' }
   ]
 
   return (
     <AppErrorBoundary>
       <div style={{ minHeight: '100vh' }}>
+        {/* Hide/Show Toggle Button */}
+        <button
+          onClick={() => setNavVisible(!navVisible)}
+          style={{
+            position: 'fixed',
+            bottom: '20px',
+            right: '20px',
+            zIndex: 1001,
+            width: '48px',
+            height: '48px',
+            backgroundColor: '#0078d4',
+            color: 'white',
+            border: 'none',
+            borderRadius: '50%',
+            cursor: 'pointer',
+            fontSize: '20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            boxShadow: '0 4px 12px rgba(0, 120, 212, 0.3)',
+            transition: 'all 0.3s ease',
+            transform: navVisible ? 'rotate(45deg)' : 'rotate(0deg)'
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = '#106ebe';
+            e.currentTarget.style.transform = navVisible ? 'rotate(45deg) scale(1.1)' : 'rotate(0deg) scale(1.1)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = '#0078d4';
+            e.currentTarget.style.transform = navVisible ? 'rotate(45deg) scale(1)' : 'rotate(0deg) scale(1)';
+          }}
+        >
+          {navVisible ? '✕' : '☰'}
+        </button>
+
         {/* Navigation Bar */}
         <div style={{
           position: 'fixed',
-          top: '20px',
+          bottom: navVisible ? '80px' : '-200px',
           right: '20px',
           zIndex: 1000,
           display: 'flex',
+          flexDirection: 'column',
           gap: '8px',
           backgroundColor: 'white',
-          padding: '8px',
-          borderRadius: '8px',
-          boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)',
-          border: '1px solid #e1dfdd'
+          padding: '16px',
+          borderRadius: '12px',
+          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
+          border: '1px solid #e1dfdd',
+          minWidth: '220px',
+          transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
+          opacity: navVisible ? 1 : 0,
+          transform: navVisible ? 'translateY(0)' : 'translateY(20px)'
         }}>
+          <div style={{
+            fontSize: '12px',
+            fontWeight: '600',
+            color: '#605e5c',
+            marginBottom: '8px',
+            fontFamily: 'Segoe UI, system-ui, sans-serif',
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px'
+          }}>
+            Navigation
+          </div>
           {views.map((view) => (
             <button
               key={view.key}
               onClick={() => setCurrentView(view.key as any)}
               style={{
-                padding: '8px 12px',
+                padding: '12px 16px',
                 backgroundColor: currentView === view.key ? '#0078d4' : 'transparent',
                 color: currentView === view.key ? 'white' : '#242424',
-                border: 'none',
-                borderRadius: '4px',
+                border: currentView === view.key ? 'none' : '1px solid #e1dfdd',
+                borderRadius: '6px',
                 cursor: 'pointer',
                 fontSize: '14px',
                 fontFamily: 'Segoe UI, system-ui, sans-serif',
                 fontWeight: currentView === view.key ? '600' : '400',
-                transition: 'all 0.2s ease'
+                transition: 'all 0.2s ease',
+                display: 'flex',
+                alignItems: 'center',
+                gap: '8px',
+                whiteSpace: 'nowrap',
+                textAlign: 'left',
+                width: '100%',
+                outline: 'none'
               }}
               onMouseEnter={(e) => {
                 if (currentView !== view.key) {
                   e.currentTarget.style.backgroundColor = '#f3f2f1';
+                  e.currentTarget.style.borderColor = '#d1d1d1';
+                  e.currentTarget.style.transform = 'translateX(-2px)';
                 }
               }}
               onMouseLeave={(e) => {
                 if (currentView !== view.key) {
                   e.currentTarget.style.backgroundColor = 'transparent';
+                  e.currentTarget.style.borderColor = '#e1dfdd';
+                  e.currentTarget.style.transform = 'translateX(0)';
                 }
               }}
+              onFocus={(e) => {
+                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 120, 212, 0.3)';
+              }}
+              onBlur={(e) => {
+                e.currentTarget.style.boxShadow = 'none';
+              }}
             >
-              {view.icon} {view.label}
+              <span style={{ fontSize: '16px' }}>{view.icon}</span>
+              <span>{view.label}</span>
             </button>
           ))}
         </div>

@@ -33,11 +33,12 @@ const FluentImporter: React.FC = () => {
     { name: 'Input', status: '✅', variants: 'All states (Rest, Focus, Disabled)', file: 'Input.tsx' },
     { name: 'Accordion', status: '✅', variants: 'All states, sizes, chevron positions', file: 'Accordion.tsx' },
     { name: 'Badge', status: '✅', variants: 'All colors, styles, icon support', file: 'Badge/Badge.tsx' },
-    { name: 'PresenceBadge', status: '✅', variants: 'All status types, sizes, in-office variants', file: 'Badge/PresenceBadge.tsx' }
+    { name: 'PresenceBadge', status: '✅', variants: 'All status types, sizes, in-office variants', file: 'Badge/PresenceBadge.tsx' },
+    { name: 'DataGrid', status: '✅', variants: 'All sizes, cell types, selection support', file: 'DataGrid.tsx' },
+    { name: 'Card', status: '✅', variants: 'All styles, sizes, states, layouts', file: 'Card.tsx' }
   ];
 
   const availableComponents = [
-    { name: 'Card', priority: '⭐⭐⭐', complexity: 'High', variants: 'Layout, States, Styles (20+ variants)' },
     { name: 'Avatar', priority: '⭐⭐⭐', complexity: 'Medium', variants: 'Image/Initials/Icon, Sizes, Colors, Presence' },
     { name: 'ProgressBar', priority: '⭐⭐', complexity: 'Low', variants: 'Determinate/Indeterminate, States, Sizes' },
     { name: 'Chat Input', priority: '⭐⭐', complexity: 'High', variants: 'Canvas/Sidecar, Multiple scenarios' },

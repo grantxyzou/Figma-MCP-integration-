@@ -4,6 +4,8 @@ import { FluentInput } from './fluent/Input';
 import { FluentDropdown } from './fluent/Dropdown';
 import { FluentAccordion } from './fluent/Accordion';
 import { FluentBadge, FluentPresenceBadge } from './fluent/Badge/index';
+import { DataGrid } from './fluent/DataGrid';
+import { Card } from './fluent/Card';
 
 const FluentShowcase: React.FC = () => {
   const [inputValue, setInputValue] = useState('');
@@ -506,6 +508,301 @@ const FluentShowcase: React.FC = () => {
               <p>This content cannot be accessed.</p>
             </FluentAccordion>
           </div>
+        </div>
+      </section>
+
+      {/* DataGrid Showcase */}
+      <section style={{ marginBottom: '40px' }}>
+        <h2 style={{ 
+          fontSize: '24px', 
+          fontWeight: 600, 
+          color: '#242424', 
+          marginBottom: '16px' 
+        }}>
+          DataGrid
+        </h2>
+        <p style={{ 
+          fontSize: '14px', 
+          color: '#605E5C', 
+          marginBottom: '16px' 
+        }}>
+          Interactive tabular data display with hover states, selection, and different cell types. Try hovering over rows and headers, and clicking to select rows.
+        </p>
+        
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '14px', 
+            fontWeight: 600, 
+            color: '#323130', 
+            marginBottom: '8px' 
+          }}>
+            Interactive DataGrid - Hover & Click to Select
+          </label>
+          <DataGrid 
+            items={[
+              {
+                id: '1',
+                contentType: 'folder',
+                content: 'Documents',
+                header1: 'Today 3:24 PM',
+                header2: 'Folder',
+                header3: '24 items',
+                header4: 'John Doe'
+              },
+              {
+                id: '2',
+                contentType: 'person',
+                content: 'Alice Smith',
+                header1: 'Available',
+                header2: 'Designer',
+                header3: 'Online',
+                header4: 'Design Team'
+              },
+              {
+                id: '3',
+                contentType: 'radio',
+                content: 'Primary Option',
+                header1: 'Selected',
+                header2: 'Config',
+                header3: 'Active',
+                header4: 'System'
+              },
+              {
+                id: '4',
+                contentType: 'link',
+                content: 'View Details',
+                header1: 'Yesterday',
+                header2: 'External',
+                header3: '2.4 MB',
+                header4: 'Public'
+              }
+            ]}
+            size="medium"
+            selectable={true}
+            onSelectionChange={(selected) => console.log('Selected items:', selected)}
+          />
+        </div>
+
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '14px', 
+            fontWeight: 600, 
+            color: '#323130', 
+            marginBottom: '8px' 
+          }}>
+            Large Size Variant (Hover Headers Too!)
+          </label>
+          <DataGrid 
+            items={[
+              {
+                id: '1',
+                contentType: 'folder',
+                content: 'Projects',
+                header1: 'Modified',
+                header2: 'Type',
+                header3: 'Size',
+                header4: 'Owner'
+              },
+              {
+                id: '2',
+                contentType: 'person',
+                content: 'Bob Wilson',
+                header1: 'Manager',
+                header2: 'Leadership',
+                header3: 'Available',
+                header4: 'Management'
+              }
+            ]}
+            size="large"
+            selectable={false}
+          />
+        </div>
+
+        <div style={{ 
+          backgroundColor: '#f8f9fa', 
+          padding: '12px', 
+          borderRadius: '6px', 
+          marginBottom: '24px',
+          border: '1px solid #e1e1e1'
+        }}>
+          <p style={{ 
+            fontSize: '13px', 
+            color: '#605E5C', 
+            margin: 0,
+            lineHeight: '1.4'
+          }}>
+            💡 <strong>Interactive Features:</strong> Hover over rows for light gray background, selected rows show blue tint, 
+            headers have hover states, and you can click entire rows to select (not just checkboxes).
+          </p>
+        </div>
+
+        <div style={{ marginBottom: '24px' }}>
+          <label style={{ 
+            display: 'block', 
+            fontSize: '14px', 
+            fontWeight: 600, 
+            color: '#323130', 
+            marginBottom: '8px' 
+          }}>
+            Small Size Variant
+          </label>
+          <DataGrid 
+            items={[
+              {
+                id: '1',
+                contentType: 'link',
+                content: 'Quick Action',
+                header1: 'Status',
+                header2: 'Priority',
+                header3: 'Due',
+                header4: 'Assignee'
+              }
+            ]}
+            size="small"
+            selectable={true}
+          />
+        </div>
+      </section>
+
+      {/* Card Showcase */}
+      <section style={{ marginBottom: '40px' }}>
+        <h2 style={{ 
+          fontSize: '24px', 
+          fontWeight: 600, 
+          color: '#242424', 
+          marginBottom: '16px' 
+        }}>
+          Cards
+        </h2>
+        <p style={{ 
+          fontSize: '14px', 
+          color: '#605E5C', 
+          marginBottom: '16px' 
+        }}>
+          Microsoft Fluent cards with different styles, sizes, and interactive states
+        </p>
+        
+        <div style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))', 
+          gap: '16px', 
+          marginBottom: '24px' 
+        }}>
+          <Card 
+            style="filled"
+            title="Copilot Card"
+            subtitle="AI-powered productivity"
+            body="Copilot is an AI tool designed to improve productivity by integrating with Microsoft applications, offering content generation and task automation features."
+            primaryActionText="Get Started"
+            secondaryActionText="Learn More"
+            onClick={() => console.log('Card clicked')}
+            onPrimaryAction={() => alert('Getting started with Copilot!')}
+            onSecondaryAction={() => alert('Learning more about Copilot...')}
+          />
+          
+          <Card 
+            style="outline"
+            title="Project Updates"
+            subtitle="Monthly report"
+            body="Review the latest project milestones, team achievements, and upcoming deadlines for the current quarter."
+            primaryActionText="View Report"
+            showSecondaryAction={false}
+            onPrimaryAction={() => alert('Opening project report...')}
+          />
+          
+          <Card 
+            style="subtle"
+            title="Quick Actions"
+            subtitle="Shortcuts available"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+            body="Access frequently used tools and commands to streamline your workflow and save time."
+          />
+        </div>
+        
+        <h3 style={{ 
+          fontSize: '18px', 
+          fontWeight: 600, 
+          color: '#242424', 
+          marginBottom: '12px' 
+        }}>
+          Card States
+        </h3>
+        <div style={{ 
+          display: 'flex', 
+          gap: '16px', 
+          flexWrap: 'wrap', 
+          marginBottom: '24px' 
+        }}>
+          <Card 
+            size="small"
+            state="rest"
+            title="Rest State"
+            subtitle="Default appearance"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+            body="This card shows the default rest state."
+          />
+          <Card 
+            size="small"
+            state="hover"
+            title="Hover State"
+            subtitle="Mouse over effect"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+            body="This card shows the hover state appearance."
+          />
+          <Card 
+            size="small"
+            state="selected"
+            title="Selected State"
+            subtitle="Active selection"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+            body="This card shows the selected state."
+          />
+        </div>
+        
+        <h3 style={{ 
+          fontSize: '18px', 
+          fontWeight: 600, 
+          color: '#242424', 
+          marginBottom: '12px' 
+        }}>
+          Card Sizes
+        </h3>
+        <div style={{ 
+          display: 'flex', 
+          gap: '16px', 
+          flexWrap: 'wrap', 
+          marginBottom: '16px' 
+        }}>
+          <Card 
+            size="small"
+            title="Small Card"
+            subtitle="Compact layout"
+            body="Perfect for lists and compact displays."
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+          />
+          <Card 
+            size="medium"
+            title="Medium Card"
+            subtitle="Default size"
+            body="Standard card size for most use cases and layouts."
+            primaryActionText="Action"
+            showSecondaryAction={false}
+          />
+          <Card 
+            size="large"
+            title="Large Card"
+            subtitle="Expanded layout"
+            body="Great for featured content and detailed information display."
+            primaryActionText="Primary"
+            secondaryActionText="Secondary"
+          />
         </div>
       </section>
 

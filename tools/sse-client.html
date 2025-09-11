@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>SSE Client</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Arial; padding: 16px; }
+      #log { white-space: pre-wrap; background:#f7f7f7; padding:12px; border:1px solid #ddd; height:300px; overflow:auto }
+      input, button { padding:8px; margin:4px 0 }
+    </style>
+  </head>
+  <body>
+    <h2>SSE Client for MCP</h2>
+    <label>Session ID (from initialize):</label><br />
+    <input id="sessionId" style="width:60%" placeholder="paste session id here" />
+    <button id="connect">Connect</button>
+    <button id="disconnect">Disconnect</button>
+    <button id="sendSample">Send sample server event</button>
+    <button id="listSessions">List sessions</button>
+    <div id="sessionsList" style="margin-top:8px"></div>
+
+    <h3>Log</h3>
+    <div id="log"></div>
+
+    <script>
+      const MCP_BASE = 'http://127.0.0.1:3845'; // server base used for API calls and SSE
+      const logEl = document.getElementById('log');
+      const append = (s) => { logEl.textContent += s + '\n'; logEl.scrollTop = logEl.scrollHeight; };
+
+      let es = null;
+      document.getElementById('connect').addEventListener('click', () => {
+        const sid = document.getElementById('sessionId').value.trim();
+        if (!sid) return alert('Enter sessionId');
+        if (es) es.close();
+        const url = `${MCP_BASE}/mcp?sessionId=${encodeURIComponent(sid)}`;
+        append('Opening EventSource → ' + url);
+        es = new EventSource(url);
+        es.onopen = () => append('[open] connected');
+        es.onmessage = (ev) => append('[message] ' + ev.data);
+        es.addEventListener('connected', (ev) => append('[event:connected] ' + ev.data));
+        es.addEventListener('server-event', (ev) => append('[event:server-event] ' + ev.data));
+        es.onerror = (e) => append('[error] ' + (e.message || JSON.stringify(e)));
+      });
+
+      document.getElementById('disconnect').addEventListener('click', () => {
+        if (es) { es.close(); es = null; append('Closed connection'); }
+      });
+
+      document.getElementById('sendSample').addEventListener('click', async () => {
+        const sid = document.getElementById('sessionId').value.trim();
+        if (!sid) return alert('Enter sessionId');
+        append('Sending sample event to session ' + sid);
+        try {
+          const r = await fetch(`${MCP_BASE}/mcp/send`, {
+            method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ sessionId: sid, event: 'server-event', data: { now: new Date().toISOString(), msg: 'hello from browser test' } })
+          });
+          const j = await r.json();
+          append('[send result] ' + JSON.stringify(j));
+        } catch (err) {
+          append('[send error] ' + err);
+        }
+      });
+
+      document.getElementById('listSessions').addEventListener('click', async () => {
+        append('Fetching sessions...');
+        try {
+          const r = await fetch(`${MCP_BASE}/mcp/sessions`);
+          const j = await r.json();
+          const container = document.getElementById('sessionsList');
+          container.innerHTML = '';
+          if (!j.sessions || j.sessions.length === 0) {
+            container.textContent = 'No active sessions';
+            return;
+          }
+          j.sessions.forEach(s => {
+            const btn = document.createElement('button');
+            btn.textContent = `${s.sessionId} (${s.streams} streams)`;
+            btn.style.display = 'block';
+            btn.style.marginBottom = '6px';
+            btn.onclick = () => {
+              document.getElementById('sessionId').value = s.sessionId;
+              append('Selected session ' + s.sessionId);
+            };
+            container.appendChild(btn);
+          });
+        } catch (err) {
+          append('[list error] ' + err);
+        }
+      });
+    </script>
+  </body>
+</html>

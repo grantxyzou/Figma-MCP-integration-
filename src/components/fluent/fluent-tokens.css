@@ -359,3 +359,624 @@
   color: var(--Brand-Foreground-1-Rest);
   font-weight: var(--Font-Weight-Semibold);
 }
+
+/* Fluent Accordion Styles */
+.fluent-accordion {
+  font-family: var(--Font-Family-Base);
+  width: 100%;
+}
+
+.fluent-accordion__header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 10px;
+  background: transparent;
+  border: none;
+  border-radius: var(--Border-Radius-Small);
+  cursor: pointer;
+  outline: none;
+  transition: all 0.1s cubic-bezier(0.1, 0.9, 0.2, 1);
+  font-family: var(--Font-Family-Base);
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--Neutral-Foreground-1-Rest);
+  min-height: 44px;
+}
+
+.fluent-accordion__header:hover:not(:disabled) {
+  background: var(--Neutral-Background-6-Hover);
+}
+
+.fluent-accordion__header:active:not(:disabled) {
+  background: var(--Neutral-Background-6-Pressed);
+}
+
+.fluent-accordion__header:focus-visible {
+  outline: 2px solid var(--Brand-Stroke-1-Rest);
+  outline-offset: 2px;
+}
+
+.fluent-accordion__header:disabled {
+  cursor: not-allowed;
+  opacity: 0.4;
+}
+
+.fluent-accordion__chevron {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--Neutral-Foreground-2-Rest);
+  transition: transform 0.1s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.fluent-accordion__chevron--expanded {
+  transform: rotate(180deg);
+}
+
+.fluent-accordion--chevron-after .fluent-accordion__header {
+  justify-content: space-between;
+}
+
+.fluent-accordion--chevron-after .fluent-accordion__content {
+  flex: 1;
+}
+
+.fluent-accordion__content {
+  display: flex;
+  align-items: center;
+  gap: var(--Spacing-S);
+  flex: 1;
+  min-width: 0;
+}
+
+.fluent-accordion__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  color: var(--Neutral-Foreground-2-Rest);
+}
+
+.fluent-accordion__title {
+  flex: 1;
+  text-align: left;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.fluent-accordion__panel {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: all 0.15s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+.fluent-accordion__panel--expanded {
+  max-height: 500px;
+  opacity: 1;
+}
+
+.fluent-accordion__panel-content {
+  padding: 0 12px 12px 12px;
+}
+
+.fluent-accordion__placeholder {
+  background: var(--Brand-Background-2-Rest);
+  padding: var(--Spacing-M);
+  border-radius: var(--Border-Radius-Small);
+  color: var(--Brand-Foreground-1-Rest);
+  font-size: 12px;
+  text-align: center;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Accordion Size Variants */
+.fluent-accordion--small .fluent-accordion__header {
+  min-height: 32px;
+  padding: var(--Spacing-XS) var(--Spacing-S);
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fluent-accordion--medium .fluent-accordion__header {
+  min-height: 44px;
+  padding: 10px;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.fluent-accordion--large .fluent-accordion__header {
+  min-height: 48px;
+  padding: var(--Spacing-M) var(--Spacing-L);
+  font-size: 16px;
+  line-height: 22px;
+}
+
+.fluent-accordion--extra-large .fluent-accordion__header {
+  min-height: 56px;
+  padding: var(--Spacing-L) 20px;
+  font-size: 18px;
+  line-height: 24px;
+}
+
+/* Fluent Badge Styles - Exact from Figma */
+.fluent-badge {
+  /* Base badge styling from Figma */
+  position: relative;
+  border-radius: 9999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-family: 'Segoe UI', sans-serif;
+  font-weight: 600; /* Semibold */
+  text-align: center;
+  white-space: nowrap;
+  gap: 2px; /* gap from Figma */
+  outline: 1px solid;
+  outline-offset: -1px;
+  width: 100%;
+  height: 100%;
+}
+
+.fluent-badge__content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  width: 100%;
+  height: 100%;
+}
+
+.fluent-badge__icon {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex-shrink: 0;
+}
+
+.fluent-badge__icon-inner {
+  padding: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.fluent-badge__text {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 2px;
+  padding-bottom: 1px;
+}
+
+.fluent-badge__text-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+/* Badge Sizes - Text-responsive from Figma */
+.fluent-badge--tiny {
+  padding: 0 2px;
+  font-size: 8px;
+  line-height: 10px;
+}
+
+.fluent-badge--tiny .fluent-badge__text {
+  height: 10px;
+}
+
+.fluent-badge--extra-small {
+  padding: 0 4px;
+  font-size: 9px;
+  line-height: 12px;
+}
+
+.fluent-badge--extra-small .fluent-badge__text {
+  height: 12px;
+}
+
+.fluent-badge--small {
+  padding: 0 2px;
+  font-size: 10px;
+  line-height: 14px;
+}
+
+.fluent-badge--small .fluent-badge__text {
+  height: 14px;
+}
+
+.fluent-badge--medium {
+  padding: 0 4px;
+  font-size: 11px;
+  line-height: 16px;
+}
+
+.fluent-badge--medium .fluent-badge__text {
+  height: 16px;
+}
+
+.fluent-badge--large {
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fluent-badge--large .fluent-badge__text {
+  height: 16px;
+}
+
+.fluent-badge--extra-large {
+  padding: 0 6px;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.fluent-badge--extra-large .fluent-badge__text {
+  height: 16px;
+}
+
+/* Icon sizing per badge size */
+.fluent-badge--tiny .fluent-badge__icon-inner > * {
+  width: 8px;
+  height: 8px;
+}
+
+.fluent-badge--extra-small .fluent-badge__icon-inner > * {
+  width: 10px;
+  height: 10px;
+}
+
+.fluent-badge--small .fluent-badge__icon-inner > * {
+  width: 12px;
+  height: 12px;
+}
+
+.fluent-badge--medium .fluent-badge__icon-inner > * {
+  width: 14px;
+  height: 14px;
+}
+
+.fluent-badge--large .fluent-badge__icon-inner > * {
+  width: 16px;
+  height: 16px;
+}
+
+.fluent-badge--extra-large .fluent-badge__icon-inner > * {
+  width: 16px;
+  height: 16px;
+}
+
+/* Icon-only badges */
+.fluent-badge--icon-only {
+  aspect-ratio: 1;
+  padding: 0;
+  min-width: auto;
+}
+
+.fluent-badge--icon-only .fluent-badge__text {
+  display: none;
+}
+
+/* Badge Color Variants - Filled */
+.fluent-badge--brand.fluent-badge--filled {
+  background: #0f6cbd;
+  color: #ffffff;
+  outline-color: #0f6cbd;
+}
+
+.fluent-badge--danger.fluent-badge--filled {
+  background: #d13438;
+  color: #ffffff;
+  outline-color: #d13438;
+}
+
+.fluent-badge--important.fluent-badge--filled {
+  background: #c239b3;
+  color: #ffffff;
+  outline-color: #c239b3;
+}
+
+.fluent-badge--informative.fluent-badge--filled {
+  background: #0078d4;
+  color: #ffffff;
+  outline-color: #0078d4;
+}
+
+.fluent-badge--severe.fluent-badge--filled {
+  background: #8a1538;
+  color: #ffffff;
+  outline-color: #8a1538;
+}
+
+.fluent-badge--subtle.fluent-badge--filled {
+  background: #605e5c;
+  color: #ffffff;
+  outline-color: #605e5c;
+}
+
+.fluent-badge--success.fluent-badge--filled {
+  background: #107c10;
+  color: #ffffff;
+  outline-color: #107c10;
+}
+
+.fluent-badge--warning.fluent-badge--filled {
+  background: #797775;
+  color: #ffffff;
+  outline-color: #797775;
+}
+
+/* Badge Color Variants - Tint */
+.fluent-badge--brand.fluent-badge--tint {
+  background: #ebf3fc;
+  color: #115ea3;
+  outline-color: #b4d6fa;
+}
+
+.fluent-badge--danger.fluent-badge--tint {
+  background: #fde7e9;
+  color: #a4262c;
+  outline-color: #eeacb2;
+}
+
+.fluent-badge--important.fluent-badge--tint {
+  background: #f7e7f7;
+  color: #9c2aa0;
+  outline-color: #e6bfdb;
+}
+
+.fluent-badge--informative.fluent-badge--tint {
+  background: #deecf9;
+  color: #004578;
+  outline-color: #92c5f7;
+}
+
+.fluent-badge--severe.fluent-badge--tint {
+  background: #f4ecee;
+  color: #6e0811;
+  outline-color: #d69ca5;
+}
+
+.fluent-badge--subtle.fluent-badge--tint {
+  background: #f3f2f1;
+  color: #3b3a39;
+  outline-color: #d2d0ce;
+}
+
+.fluent-badge--success.fluent-badge--tint {
+  background: #dff6dd;
+  color: #0b5a0b;
+  outline-color: #9fd89f;
+}
+
+.fluent-badge--warning.fluent-badge--tint {
+  background: #fef7b2;
+  color: #6c5700;
+  outline-color: #f9e64a;
+}
+
+/* Badge Color Variants - Outline */
+.fluent-badge--brand.fluent-badge--outline {
+  background: transparent;
+  color: #115ea3;
+  outline-color: #0f6cbd;
+}
+
+.fluent-badge--danger.fluent-badge--outline {
+  background: transparent;
+  color: #a4262c;
+  outline-color: #d13438;
+}
+
+.fluent-badge--important.fluent-badge--outline {
+  background: transparent;
+  color: #9c2aa0;
+  outline-color: #c239b3;
+}
+
+.fluent-badge--informative.fluent-badge--outline {
+  background: transparent;
+  color: #004578;
+  outline-color: #0078d4;
+}
+
+.fluent-badge--severe.fluent-badge--outline {
+  background: transparent;
+  color: #6e0811;
+  outline-color: #8a1538;
+}
+
+.fluent-badge--subtle.fluent-badge--outline {
+  background: transparent;
+  color: #3b3a39;
+  outline-color: #605e5c;
+}
+
+.fluent-badge--success.fluent-badge--outline {
+  background: transparent;
+  color: #0b5a0b;
+  outline-color: #107c10;
+}
+
+.fluent-badge--warning.fluent-badge--outline {
+  background: transparent;
+  color: #6c5700;
+  outline-color: #797775;
+}
+
+/* Badge Color Variants - Subtle */
+.fluent-badge--brand.fluent-badge--subtle {
+  background: transparent;
+  color: #115ea3;
+  outline-color: transparent;
+}
+
+.fluent-badge--danger.fluent-badge--subtle {
+  background: transparent;
+  color: #a4262c;
+  outline-color: transparent;
+}
+
+.fluent-badge--important.fluent-badge--subtle {
+  background: transparent;
+  color: #9c2aa0;
+  outline-color: transparent;
+}
+
+.fluent-badge--informative.fluent-badge--subtle {
+  background: transparent;
+  color: #004578;
+  outline-color: transparent;
+}
+
+.fluent-badge--severe.fluent-badge--subtle {
+  background: transparent;
+  color: #6e0811;
+  outline-color: transparent;
+}
+
+.fluent-badge--subtle.fluent-badge--subtle {
+  background: transparent;
+  color: #3b3a39;
+  outline-color: transparent;
+}
+
+.fluent-badge--success.fluent-badge--subtle {
+  background: transparent;
+  color: #0b5a0b;
+  outline-color: transparent;
+}
+
+.fluent-badge--warning.fluent-badge--subtle {
+  background: transparent;
+  color: #6c5700;
+  outline-color: transparent;
+}
+
+/* Fluent Presence Badge Styles - Exact from Figma */
+.fluent-presence-badge {
+  position: relative;
+  display: inline-block;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 2px solid #ffffff;
+  box-sizing: border-box;
+}
+
+.fluent-presence-badge__ring {
+  position: absolute;
+  inset: -2px;
+  border: 2px solid #ffffff;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.fluent-presence-badge__content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.fluent-presence-badge__icon {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Presence Badge Sizes */
+.fluent-presence-badge--tiny {
+  width: 6px;
+  height: 6px;
+}
+
+.fluent-presence-badge--extra-small {
+  width: 10px;
+  height: 10px;
+}
+
+.fluent-presence-badge--small {
+  width: 12px;
+  height: 12px;
+}
+
+.fluent-presence-badge--medium {
+  width: 16px;
+  height: 16px;
+}
+
+.fluent-presence-badge--large {
+  width: 20px;
+  height: 20px;
+}
+
+.fluent-presence-badge--extra-large {
+  width: 28px;
+  height: 28px;
+}
+
+/* Presence Badge Status Colors */
+.fluent-presence-badge--available .fluent-presence-badge__content {
+  background: #13a10e;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--busy .fluent-presence-badge__content {
+  background: #c50f1f;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--do-not-disturb .fluent-presence-badge__content {
+  background: #c50f1f;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--away .fluent-presence-badge__content {
+  background: #ffaa44;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--offline .fluent-presence-badge__content {
+  background: #8a8886;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--out-of-office .fluent-presence-badge__content {
+  background: #8764b8;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--blocked .fluent-presence-badge__content {
+  background: #c50f1f;
+  color: #ffffff;
+}
+
+.fluent-presence-badge--unknown .fluent-presence-badge__content {
+  background: #8a8886;
+  color: #ffffff;
+}
+
+/* In-office indicator - adds subtle styling difference */
+.fluent-presence-badge--in-office {
+  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1);
+}

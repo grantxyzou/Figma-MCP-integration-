@@ -132,28 +132,33 @@ const FluentDemo = React.lazy(() =>
   })
 );
 
-const FluentImporter = React.lazy(() => 
-  import('./components/FluentImporter').catch(error => {
-    console.error('Failed to load FluentImporter:', error);
-    return {
-      default: () => (
-        <div style={{ padding: '40px', textAlign: 'center' }}>
-          <h2>Fluent Importer Temporarily Unavailable</h2>
-          <p>There was an issue loading the component importer.</p>
-        </div>
-      )
-    };
-  })
-);
+
 
 function App() {
-  const [currentView, setCurrentView] = useState<'azure' | 'dashboard' | 'fluent' | 'importer' | 'test' | 'storage'>('test')
+  const [currentView, setCurrentView] = useState<'azure' | 'dashboard' | 'fluent' | 'test' | 'storage'>('test')
   const [navVisible, setNavVisible] = useState(true)
+  const [fluentMenuExpanded, setFluentMenuExpanded] = useState(false)
+  const [fluentComponentView, setFluentComponentView] = useState<string>('overview')
 
   const views = [
     { key: 'test', label: 'Debug Test', icon: '🔧' },
-    { key: 'fluent', label: 'Fluent Demo', icon: '🎨' },
-    { key: 'importer', label: 'Component Importer', icon: '📦' },
+    { 
+      key: 'fluent', 
+      label: 'Fluent Demo', 
+      icon: '🎨',
+      hasSubmenu: true,
+      submenu: [
+        { key: 'fluent', label: 'Overview', icon: '📝' },
+        { key: 'button', label: 'Button', icon: '🔘' },
+        { key: 'input', label: 'Input', icon: '📝' },
+        { key: 'card', label: 'Card', icon: '🃏' },
+        { key: 'dropdown', label: 'Dropdown', icon: '📋' },
+        { key: 'accordion', label: 'Accordion', icon: '📖' },
+        { key: 'badge', label: 'Badge', icon: '🏷️' },
+        { key: 'datagrid', label: 'DataGrid', icon: '📊' },
+        { key: 'drawer', label: 'Drawer', icon: '📂' }
+      ]
+    },
     { key: 'dashboard', label: 'Dashboard', icon: '📊' },
     { key: 'azure', label: 'Azure Form', icon: '🔷' },
     { key: 'storage', label: 'Storage Assignment', icon: '🗂️' }
@@ -200,8 +205,8 @@ function App() {
         {/* Navigation Bar */}
         <div style={{
           position: 'fixed',
-          bottom: navVisible ? '80px' : '-200px',
-          right: '20px',
+          bottom: navVisible ? '80px' : '-480px',
+          right: '60px',
           zIndex: 1000,
           display: 'flex',
           flexDirection: 'column',
@@ -212,6 +217,9 @@ function App() {
           boxShadow: '0 8px 24px rgba(0, 0, 0, 0.15)',
           border: '1px solid #e1dfdd',
           minWidth: '220px',
+          maxWidth: '240px',
+          maxHeight: '560px',
+          overflowY: 'auto',
           transition: 'all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94)',
           opacity: navVisible ? 1 : 0,
           transform: navVisible ? 'translateY(0)' : 'translateY(20px)'
@@ -228,52 +236,142 @@ function App() {
             Navigation
           </div>
           {views.map((view) => (
-            <button
-              key={view.key}
-              onClick={() => setCurrentView(view.key as any)}
-              style={{
-                padding: '12px 16px',
-                backgroundColor: currentView === view.key ? '#0078d4' : 'transparent',
-                color: currentView === view.key ? 'white' : '#242424',
-                border: currentView === view.key ? 'none' : '1px solid #e1dfdd',
-                borderRadius: '6px',
-                cursor: 'pointer',
-                fontSize: '14px',
-                fontFamily: 'Segoe UI, system-ui, sans-serif',
-                fontWeight: currentView === view.key ? '600' : '400',
-                transition: 'all 0.2s ease',
-                display: 'flex',
-                alignItems: 'center',
-                gap: '8px',
-                whiteSpace: 'nowrap',
-                textAlign: 'left',
-                width: '100%',
-                outline: 'none'
-              }}
-              onMouseEnter={(e) => {
-                if (currentView !== view.key) {
-                  e.currentTarget.style.backgroundColor = '#f3f2f1';
-                  e.currentTarget.style.borderColor = '#d1d1d1';
-                  e.currentTarget.style.transform = 'translateX(-2px)';
-                }
-              }}
-              onMouseLeave={(e) => {
-                if (currentView !== view.key) {
-                  e.currentTarget.style.backgroundColor = 'transparent';
-                  e.currentTarget.style.borderColor = '#e1dfdd';
-                  e.currentTarget.style.transform = 'translateX(0)';
-                }
-              }}
-              onFocus={(e) => {
-                e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 120, 212, 0.3)';
-              }}
-              onBlur={(e) => {
-                e.currentTarget.style.boxShadow = 'none';
-              }}
-            >
-              <span style={{ fontSize: '16px' }}>{view.icon}</span>
-              <span>{view.label}</span>
-            </button>
+            <div key={view.key}>
+              {/* Main navigation item */}
+              <button
+                onClick={() => {
+                  if (view.hasSubmenu) {
+                    setFluentMenuExpanded(!fluentMenuExpanded);
+                    if (!fluentMenuExpanded) {
+                      setCurrentView(view.key as any);
+                      setFluentComponentView('overview');
+                    } else {
+                      // If clicking again to collapse, also set to overview
+                      setCurrentView(view.key as any);
+                      setFluentComponentView('overview');
+                    }
+                  } else {
+                    setCurrentView(view.key as any);
+                    setFluentMenuExpanded(false);
+                    setFluentComponentView('overview');
+                  }
+                }}
+                style={{
+                  padding: '12px 16px',
+                  backgroundColor: currentView === view.key ? '#0078d4' : 'transparent',
+                  color: currentView === view.key ? 'white' : '#242424',
+                  border: currentView === view.key ? 'none' : '1px solid #e1dfdd',
+                  borderRadius: '6px',
+                  cursor: 'pointer',
+                  fontSize: '14px',
+                  fontFamily: 'Segoe UI, system-ui, sans-serif',
+                  fontWeight: currentView === view.key ? '600' : '400',
+                  transition: 'all 0.2s ease',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: '8px',
+                  whiteSpace: 'nowrap',
+                  textAlign: 'left',
+                  width: '100%',
+                  outline: 'none'
+                }}
+                onMouseEnter={(e) => {
+                  if (currentView !== view.key) {
+                    e.currentTarget.style.backgroundColor = '#f3f2f1';
+                    e.currentTarget.style.borderColor = '#d1d1d1';
+                    e.currentTarget.style.transform = 'translateX(-2px)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (currentView !== view.key) {
+                    e.currentTarget.style.backgroundColor = 'transparent';
+                    e.currentTarget.style.borderColor = '#e1dfdd';
+                    e.currentTarget.style.transform = 'translateX(0)';
+                  }
+                }}
+                onFocus={(e) => {
+                  e.currentTarget.style.boxShadow = '0 0 0 2px rgba(0, 120, 212, 0.3)';
+                }}
+                onBlur={(e) => {
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span style={{ fontSize: '16px' }}>{view.icon}</span>
+                  <span>{view.label}</span>
+                </div>
+                {view.hasSubmenu && (
+                  <span style={{ 
+                    fontSize: '12px',
+                    transform: fluentMenuExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transition: 'transform 0.2s ease'
+                  }}>
+                    ▼
+                  </span>
+                )}
+              </button>
+
+              {/* Submenu for Fluent Demo */}
+              {view.hasSubmenu && fluentMenuExpanded && (
+                <div style={{
+                  marginTop: '4px',
+                  marginLeft: '16px',
+                  paddingLeft: '16px',
+                  borderLeft: '2px solid #e1dfdd',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  gap: '4px'
+                }}>
+                  {view.submenu?.map((submenuItem) => (
+                    <button
+                      key={submenuItem.key}
+                      onClick={() => {
+                        setCurrentView('fluent');
+                        setFluentComponentView(submenuItem.key);
+                      }}
+                      style={{
+                        padding: '8px 12px',
+                        backgroundColor: fluentComponentView === submenuItem.key ? '#f3f9ff' : 'transparent',
+                        color: fluentComponentView === submenuItem.key ? '#0078d4' : '#605e5c',
+                        border: fluentComponentView === submenuItem.key ? '1px solid #0078d4' : 'none',
+                        borderRadius: '4px',
+                        cursor: 'pointer',
+                        fontSize: '13px',
+                        fontFamily: 'Segoe UI, system-ui, sans-serif',
+                        fontWeight: fluentComponentView === submenuItem.key ? '500' : '400',
+                        transition: 'all 0.2s ease',
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: '6px',
+                        whiteSpace: 'nowrap',
+                        textAlign: 'left',
+                        width: '100%',
+                        outline: 'none'
+                      }}
+                      onMouseEnter={(e) => {
+                        if (fluentComponentView !== submenuItem.key) {
+                          e.currentTarget.style.backgroundColor = '#f8f9fa';
+                          e.currentTarget.style.color = '#242424';
+                        }
+                      }}
+                      onMouseLeave={(e) => {
+                        if (fluentComponentView !== submenuItem.key) {
+                          e.currentTarget.style.backgroundColor = 'transparent';
+                          e.currentTarget.style.color = '#605e5c';
+                        } else {
+                          e.currentTarget.style.backgroundColor = '#f3f9ff';
+                          e.currentTarget.style.color = '#0078d4';
+                        }
+                      }}
+                    >
+                      <span style={{ fontSize: '14px' }}>{submenuItem.icon}</span>
+                      <span>{submenuItem.label}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
         </div>
 
@@ -282,13 +380,7 @@ function App() {
 
         {currentView === 'fluent' && (
           <React.Suspense fallback={<LoadingComponent message="Loading Fluent Demo..." />}>
-            <FluentDemo />
-          </React.Suspense>
-        )}
-
-        {currentView === 'importer' && (
-          <React.Suspense fallback={<LoadingComponent message="Loading Component Importer..." />}>
-            <FluentImporter />
+            <FluentDemo initialView={fluentComponentView} />
           </React.Suspense>
         )}
 

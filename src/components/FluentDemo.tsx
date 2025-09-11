@@ -2,10 +2,14 @@
 // This shows the components generated from the Figma MCP integration with authentic styling
 
 import React from 'react';
-import FluentShowcase from './FluentShowcase';
+import FluentDemoHub from './FluentDemoHub';
 
-const FluentDemo: React.FC = () => {
-  return <FluentShowcase />;
+interface FluentDemoProps {
+  initialView?: string;
+}
+
+const FluentDemo: React.FC<FluentDemoProps> = ({ initialView = 'overview' }) => {
+  return <FluentDemoHub initialView={initialView} />;
 };
 
 export default FluentDemo;

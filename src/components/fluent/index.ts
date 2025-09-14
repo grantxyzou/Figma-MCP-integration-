@@ -8,9 +8,11 @@ import FluentAccordionComponent, { FluentAccordion } from './Accordion';
 import FluentDataGridComponent, { DataGrid as FluentDataGrid } from './DataGrid';
 import FluentCardComponent, { FluentCard } from './Card';
 import FluentDrawerComponent, { FluentDrawer, DrawerHeader, DrawerFooter } from './Drawer';
+import { StorageConfiguration } from './StorageConfiguration';
+import AzureStorageConfiguration from './AzureStorageConfiguration';
 
 // Export named exports
-export { FluentButton, FluentDropdown, FluentInput, FluentAccordion, FluentDataGrid, FluentCard, FluentDrawer, DrawerHeader, DrawerFooter };
+export { FluentButton, FluentDropdown, FluentInput, FluentAccordion, FluentDataGrid, FluentCard, FluentDrawer, DrawerHeader, DrawerFooter, StorageConfiguration, AzureStorageConfiguration };
 
 // Export Badge components from Badge folder
 export * from './Badge';
@@ -46,4 +48,5 @@ export const FLUENT_COMPONENT_MAP = {
   '8:8914': 'FluentButton',    // Create button variant
   '8:7313': 'FluentDropdown',  // Storage account dropdown
   '8:2562': 'FluentInput',     // Form field input
+  '33:10637': 'StorageConfiguration', // Azure Storage Configuration form
 };

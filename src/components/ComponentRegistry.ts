@@ -5,6 +5,7 @@ import Button from './Button';
 import Dropdown from './Dropdown';
 import FormField from './FormField';
 import AzureAssignmentForm from './AzureAssignmentForm';
+import { StorageConfiguration } from './fluent/StorageConfiguration';
 
 export interface ComponentMapping {
   nodeId: string;
@@ -133,6 +134,20 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
       default: {}
     },
     description: 'Complete Azure assignment form'
+  },
+
+  // Storage Configuration Component
+  {
+    nodeId: '33:10637', // Azure Storage Configuration form
+    componentName: 'StorageConfiguration',
+    component: StorageConfiguration,
+    variants: {
+      default: {},
+      readOnly: {
+        readOnly: true
+      }
+    },
+    description: 'Complete Azure Storage configuration form with 13 settings'
   }
 ];
 

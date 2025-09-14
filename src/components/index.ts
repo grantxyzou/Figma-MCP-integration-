@@ -6,6 +6,15 @@ export { default as AdminDashboard } from './AdminDashboard';
 export { default as Button } from './Button';
 export { default as Dropdown } from './Dropdown';
 export { default as FormField } from './FormField';
+export { default as CleanStorageConfiguration } from './CleanStorageConfiguration';
+export { default as StorageConfigurationModular } from './StorageConfigurationModular';
+
+// Form section components
+export * from './forms';
+
+// Navigation components
+export { default as FluentComponentDemo } from './FluentComponentDemo';
+export { default as Playground } from './Playground';
 
 // MCP Integration utilities
 export * from './ComponentRegistry';

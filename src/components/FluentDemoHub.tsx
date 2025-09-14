@@ -13,6 +13,8 @@ import AccordionShowcase from './showcases/AccordionShowcase';
 import BadgeShowcase from './showcases/BadgeShowcase';
 import DataGridShowcase from './showcases/DataGridShowcase';
 import DrawerShowcase from './DrawerShowcase';
+import AzureStorageConfigurationShowcase from './showcases/AzureStorageConfigurationShowcase';
+import StorageConfigurationShowcase from './showcases/StorageConfigurationShowcase';
 
 type ShowcaseView = 
   | 'overview' 
@@ -23,7 +25,9 @@ type ShowcaseView =
   | 'badge' 
   | 'card' 
   | 'datagrid' 
-  | 'drawer';
+  | 'drawer'
+  | 'azure-storage'
+  | 'storage-configuration';
 
 interface FluentDemoHubProps {
   className?: string;
@@ -116,6 +120,27 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
           figmaNodeId: 'TBD'
         }
       ]
+    },
+    {
+      title: 'Real-world Examples',
+      description: 'Complex UI patterns and complete interfaces',
+      icon: '🏢',
+      components: [
+        { 
+          key: 'azure-storage' as ShowcaseView, 
+          name: 'Azure Storage Config', 
+          description: 'Complete Azure Storage configuration blade from Figma',
+          status: 'complete',
+          figmaNodeId: '33:10637'
+        },
+        { 
+          key: 'storage-configuration' as ShowcaseView, 
+          name: 'Storage Configuration', 
+          description: 'Clean Azure Storage configuration form component',
+          status: 'complete',
+          figmaNodeId: '33:10637'
+        }
+      ]
     }
   ];
 
@@ -138,6 +163,10 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
         return <DataGridShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'drawer':
         return <DrawerShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'azure-storage':
+        return <AzureStorageConfigurationShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'storage-configuration':
+        return <StorageConfigurationShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       // For any other components that don't have dedicated showcases yet, show a placeholder
       default:
         return (

@@ -3,11 +3,13 @@ import './index.css'
 import { AzureAssignmentForm } from './components'
 import SimpleTest from './components/SimpleTest'
 import AzureStorageAssignmentForm from './components/AzureStorageAssignmentForm'
-import FluentComponentDemo from './components/FluentComponentDemo'
-import Playground from './components/Playground'
+import StorageConfiguration from './components/StorageConfiguration-Clean'
+import FluentStyleTest from './components/FluentStyleTest'
 
 // Simple error boundary component
-class AppErrorBoundary extends React.Component<
+c        {currentView === 'storage' && (
+          <StorageConfiguration />
+        )}rBoundary extends React.Component<
   { children: React.ReactNode },
   { hasError: boolean; error?: Error }
 > {
@@ -120,19 +122,34 @@ const AdminDashboard = React.lazy(() =>
   })
 );
 
+const FluentDemo = React.lazy(() => 
+  import('./components/FluentDemo').catch(error => {
+    console.error('Failed to load FluentDemo:', error);
+    return {
+      default: () => (
+        <div style={{ padding: '40px', textAlign: 'center' }}>
+          <h2>Fluent Demo Temporarily Unavailable</h2>
+          <p>There was an issue loading the Fluent components demo.</p>
+        </div>
+      )
+    };
+  })
+);
+
+
+
 function App() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'fluent' | 'test' | 'playground'>('test')
+  const [currentView, setCurrentView] = useState<'azure' | 'dashboard' | 'fluent' | 'test' | 'storage' | 'config' | 'styletest'>('test')
   const [navVisible, setNavVisible] = useState(true)
   const [fluentMenuExpanded, setFluentMenuExpanded] = useState(false)
-  const [playgroundMenuExpanded, setPlaygroundMenuExpanded] = useState(false)
   const [fluentComponentView, setFluentComponentView] = useState<string>('overview')
-  const [playgroundView, setPlaygroundView] = useState<string>('overview')
 
   const views = [
     { key: 'test', label: 'Debug Test', icon: '🔧' },
+    { key: 'styletest', label: 'Fluent Style Test', icon: '🎨' },
     { 
       key: 'fluent', 
-      label: 'Fluent Component Demo', 
+      label: 'Fluent Demo', 
       icon: '🎨',
       hasSubmenu: true,
       submenu: [
@@ -147,20 +164,10 @@ function App() {
         { key: 'drawer', label: 'Drawer', icon: '📂' }
       ]
     },
-    { 
-      key: 'playground', 
-      label: 'Playground', 
-      icon: '🚀',
-      hasSubmenu: true,
-      submenu: [
-        { key: 'playground', label: 'Overview', icon: '🚀' },
-        { key: 'azure-storage-config', label: 'Azure Storage Config', icon: '🏢' },
-        { key: 'storage-configuration', label: 'Storage Configuration', icon: '⚙️' },
-        { key: 'azure-assignment-form', label: 'Azure Assignment Form', icon: '�' },
-        { key: 'storage-assignment-form', label: 'Storage Assignment Form', icon: '�️' }
-      ]
-    },
-    { key: 'dashboard', label: 'Dashboard', icon: '�' }
+    { key: 'dashboard', label: 'Dashboard', icon: '📊' },
+    { key: 'azure', label: 'Azure Form', icon: '🔷' },
+    { key: 'storage', label: 'Storage Assignment', icon: '🗂️' },
+    { key: 'config', label: 'Storage Config', icon: '⚙️' }
   ]
 
   return (
@@ -240,33 +247,19 @@ function App() {
               <button
                 onClick={() => {
                   if (view.hasSubmenu) {
-                    if (view.key === 'fluent') {
-                      setFluentMenuExpanded(!fluentMenuExpanded);
-                      setPlaygroundMenuExpanded(false);
-                      if (!fluentMenuExpanded) {
-                        setCurrentView(view.key as any);
-                        setFluentComponentView('overview');
-                      } else {
-                        setCurrentView(view.key as any);
-                        setFluentComponentView('overview');
-                      }
-                    } else if (view.key === 'playground') {
-                      setPlaygroundMenuExpanded(!playgroundMenuExpanded);
-                      setFluentMenuExpanded(false);
-                      if (!playgroundMenuExpanded) {
-                        setCurrentView(view.key as any);
-                        setPlaygroundView('overview');
-                      } else {
-                        setCurrentView(view.key as any);
-                        setPlaygroundView('overview');
-                      }
+                    setFluentMenuExpanded(!fluentMenuExpanded);
+                    if (!fluentMenuExpanded) {
+                      setCurrentView(view.key as any);
+                      setFluentComponentView('overview');
+                    } else {
+                      // If clicking again to collapse, also set to overview
+                      setCurrentView(view.key as any);
+                      setFluentComponentView('overview');
                     }
                   } else {
                     setCurrentView(view.key as any);
                     setFluentMenuExpanded(false);
-                    setPlaygroundMenuExpanded(false);
                     setFluentComponentView('overview');
-                    setPlaygroundView('overview');
                   }
                 }}
                 style={{
@@ -317,7 +310,7 @@ function App() {
                 {view.hasSubmenu && (
                   <span style={{ 
                     fontSize: '12px',
-                    transform: (view.key === 'fluent' && fluentMenuExpanded) || (view.key === 'playground' && playgroundMenuExpanded) ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transform: fluentMenuExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease'
                   }}>
                     ▼
@@ -325,8 +318,8 @@ function App() {
                 )}
               </button>
 
-              {/* Submenu for Fluent Component Demo */}
-              {view.key === 'fluent' && view.hasSubmenu && fluentMenuExpanded && (
+              {/* Submenu for Fluent Demo */}
+              {view.hasSubmenu && fluentMenuExpanded && (
                 <div style={{
                   marginTop: '4px',
                   marginLeft: '16px',
@@ -384,66 +377,6 @@ function App() {
                   ))}
                 </div>
               )}
-
-              {/* Submenu for Playground */}
-              {view.key === 'playground' && view.hasSubmenu && playgroundMenuExpanded && (
-                <div style={{
-                  marginTop: '4px',
-                  marginLeft: '16px',
-                  paddingLeft: '16px',
-                  borderLeft: '2px solid #e1dfdd',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px'
-                }}>
-                  {view.submenu?.map((submenuItem) => (
-                    <button
-                      key={submenuItem.key}
-                      onClick={() => {
-                        setCurrentView('playground');
-                        setPlaygroundView(submenuItem.key);
-                      }}
-                      style={{
-                        padding: '8px 12px',
-                        backgroundColor: playgroundView === submenuItem.key ? '#f3f3ff' : 'transparent',
-                        color: playgroundView === submenuItem.key ? '#8b5cf6' : '#605e5c',
-                        border: playgroundView === submenuItem.key ? '1px solid #8b5cf6' : 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        fontFamily: 'Segoe UI, system-ui, sans-serif',
-                        fontWeight: playgroundView === submenuItem.key ? '500' : '400',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        whiteSpace: 'nowrap',
-                        textAlign: 'left',
-                        width: '100%',
-                        outline: 'none'
-                      }}
-                      onMouseEnter={(e) => {
-                        if (playgroundView !== submenuItem.key) {
-                          e.currentTarget.style.backgroundColor = '#f8f9fa';
-                          e.currentTarget.style.color = '#242424';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (playgroundView !== submenuItem.key) {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#605e5c';
-                        } else {
-                          e.currentTarget.style.backgroundColor = '#f3f3ff';
-                          e.currentTarget.style.color = '#8b5cf6';
-                        }
-                      }}
-                    >
-                      <span style={{ fontSize: '14px' }}>{submenuItem.icon}</span>
-                      <span>{submenuItem.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
             </div>
           ))}
         </div>
@@ -451,15 +384,11 @@ function App() {
         {/* Render Current View */}
         {currentView === 'test' && <SimpleTest />}
 
-        {currentView === 'fluent' && (
-          <React.Suspense fallback={<LoadingComponent message="Loading Fluent Component Demo..." />}>
-            <FluentComponentDemo initialView={fluentComponentView} />
-          </React.Suspense>
-        )}
+        {currentView === 'styletest' && <FluentStyleTest />}
 
-        {currentView === 'playground' && (
-          <React.Suspense fallback={<LoadingComponent message="Loading Playground..." />}>
-            <Playground initialView={playgroundView} />
+        {currentView === 'fluent' && (
+          <React.Suspense fallback={<LoadingComponent message="Loading Fluent Demo..." />}>
+            <FluentDemo initialView={fluentComponentView} />
           </React.Suspense>
         )}
 
@@ -467,6 +396,34 @@ function App() {
           <React.Suspense fallback={<LoadingComponent message="Loading Dashboard..." />}>
             <AdminDashboard />
           </React.Suspense>
+        )}
+
+        {currentView === 'azure' && (
+          <div style={{ 
+            minHeight: '100vh', 
+            backgroundColor: '#f3f4f6', 
+            padding: '40px 20px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}>
+            <AzureAssignmentForm />
+          </div>
+        )}
+
+        {currentView === 'storage' && <AzureStorageAssignmentForm />}
+        
+        {currentView === 'config' && (
+          <StorageConfiguration 
+            onSave={(config) => {
+              console.log('Storage configuration saved:', config);
+              alert('Configuration saved successfully!');
+            }}
+            onDiscard={() => {
+              console.log('Configuration discarded');
+              alert('Changes discarded');
+            }}
+          />
         )}
       </div>
     </AppErrorBoundary>

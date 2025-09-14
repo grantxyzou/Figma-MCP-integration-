@@ -35,12 +35,60 @@ src/components/showcases/
 └── index.ts                       # Export file
 ```
 
+### Form Components (NEW - Preferred for Complex Forms)
+```
+src/components/forms/
+├── SectionName/                   # Individual form sections
+│   ├── SectionName.tsx           # Section component
+│   └── index.ts                  # Export file
+├── CompositeName.tsx              # Combined form components
+└── index.ts                      # Barrel export for all forms
+```
+
 ### Shared Components
 ```
 src/components/shared/
 ├── ComponentShowcaseLayout.tsx    # Standard layout wrapper
 └── index.ts                       # Export file
 ```
+
+## 2.5. Modular Component Architecture (Preferred Approach)
+
+### Form Components Organization
+When extracting complex forms from Figma, prefer modular approach over monolithic:
+
+**Benefits of Modular Extraction:**
+- **Cleaner MCP Output**: Individual sections yield 3-6 assets vs 40+ for full pages
+- **Better Maintainability**: Each section independently testable and reusable
+- **Focused Development**: Clear separation of concerns and responsibilities
+- **Easier Testing**: Unit test individual sections before composition
+
+### Modular Extraction Workflow
+1. Use `mcp_figma_get_metadata()` on parent container to identify all sections
+2. Extract individual sections using specific node IDs (e.g., 33:10647, 33:10683)
+3. Create focused components for each section with proper TypeScript interfaces
+4. Build composite component that combines individual sections
+5. Create comprehensive showcase demonstrating both individual and composite usage
+
+### Example: Azure Storage Configuration
+```typescript
+// Individual sections
+- PerformanceSection.tsx (node 33:10647) - 6 assets
+- SecureTransferSection.tsx (node 33:10683) - 3 assets  
+- TlsVersionSection.tsx (node 33:10855) - 2 assets
+
+// Composite component
+- StorageConfigurationModular.tsx - combines all sections
+
+// Showcase
+- StorageConfigurationModularShowcase.tsx - demonstrates architecture
+```
+
+## 3. Component Development Workflow
+## 2.5. Modular Component Architecture (Preferred Approach)
+
+### Form Components Organization
+When extracting complex forms from Figma, prefer modular approach over monolithic:
 
 ## 3. Component Development Workflow
 
@@ -266,25 +314,39 @@ Before marking component complete:
 Always review these key files to understand current state:
 1. `README.md` - Project overview and component status
 2. `src/components/AdminDashboard.tsx` - Current metrics (line 1-100)
-3. `src/components/FluentDemoHub.tsx` - Component categories and navigation
-4. `src/App.tsx` - Navigation structure and routing
-5. `src/components/ComponentRegistry.ts` - Figma mappings
+3. `src/components/FluentDemoHub.tsx` - Component categories and individual showcases
+4. `src/components/Playground.tsx` - Real-world application examples
+5. `src/App.tsx` - Navigation structure and routing
+6. `src/components/ComponentRegistry.ts` - Figma nodeId mappings
+7. `src/components/forms/index.ts` - Modular form components (if working with forms)
 
 ### Key Context Points
-- **Current Status**: 9 components implemented (64% complete)
+- **Current Status**: Enhanced with modular architecture for complex forms
 - **Active Components**: Button, Dropdown, Input, Accordion, Badge, PresenceBadge, DataGrid, Card, Drawer
-- **Pending Priority**: Avatar, ProgressBar components
+- **Form Sections**: PerformanceSection, SecureTransferSection, TlsVersionSection (from Azure Storage Config)
+- **Composite Components**: StorageConfigurationModular (demonstrates modular approach)
 - **Design System**: Microsoft Fluent 2 Web UI Kit
 - **Responsive Target**: MacBook Pro 16" optimized (1200px max width)
-- **Navigation**: Hierarchical with Fluent Demo containing component submenus
+- **Navigation**: Dual-track with FluentComponentDemo and Playground for different use cases
+- **Architecture**: Modular form extraction preferred over monolithic filtering
+
+### Navigation Structure (UPDATED)
+- **FluentComponentDemo**: Individual Fluent 2 component showcases and catalog
+- **Playground**: Real-world application examples and complex interfaces  
+- **Dashboard**: Implementation metrics and project status
 
 ### MCP Integration Workflow
 1. User selects component in Figma
-2. Use `mcp_figma_get_metadata()` to get node ID
-3. Use `mcp_figma_get_code()` to extract specifications
-4. Implement React component matching exact specifications
-5. Create showcase and update navigation
-6. Update dashboard metrics and component registry
+2. Use `mcp_figma_get_metadata()` to get node ID and identify sections
+3. **For Complex Forms**: Extract individual sections with `mcp_figma_get_code()` using specific node IDs
+4. **For Simple Components**: Extract complete component with `mcp_figma_get_code()`
+5. Implement React components matching exact specifications
+6. Create showcase and update navigation (FluentComponentDemo vs Playground)
+7. Update dashboard metrics and component registry
+
+### Preferred Extraction Approaches (NEW)
+- **Modular**: Complex forms, configuration interfaces, multi-step workflows
+- **Monolithic**: Simple single-purpose components, marketing pages, static content
 
 ## 11. Common Patterns
 
@@ -314,3 +376,53 @@ export interface FluentComponentProps {
 ```
 
 This document should be referenced at the start of every session to ensure continuity and consistency in component development.
+
+## 12. Recent Architectural Evolution (September 2025)
+
+### Modular vs Monolithic Approach
+The project has evolved from monolithic component extraction to a modular architecture:
+
+**Previous Approach**: Extract entire Figma frames as single components
+- Pro: Complete fidelity to design
+- Con: Complex MCP output with 40+ assets, harder to maintain
+
+**Current Preferred Approach**: Extract individual sections as focused components
+- Pro: Clean MCP output (3-6 assets), better maintainability, reusable sections
+- Con: Requires more thoughtful composition
+
+### Implementation Examples
+- **Individual Sections**: `PerformanceSection`, `SecureTransferSection`, `TlsVersionSection`
+- **Composite Components**: `StorageConfigurationModular`
+- **Showcases**: Compare approaches in `StorageConfigurationModularShowcase`
+
+### Navigation Architecture
+- **FluentComponentDemo** (`src/components/FluentComponentDemo.tsx`): Individual component catalog
+- **Playground** (`src/components/Playground.tsx`): Real-world application examples
+- **App.tsx**: Dual navigation with submenu support for both tracks
+
+### Form Component Pattern (NEW)
+```typescript
+// Individual form section
+export interface SectionProps {
+  value?: string;
+  onChange?: (value: string) => void;
+  disabled?: boolean;
+}
+
+// Composite form component
+export interface CompositeFormProps {
+  onSave?: (data: FormData) => void;
+  onDiscard?: () => void;
+  initialData?: Partial<FormData>;
+}
+```
+
+### Showcase Integration Checklist
+- [ ] Individual component showcase in FluentComponentDemo
+- [ ] Real-world application example in Playground
+- [ ] Component exported from appropriate index.ts files
+- [ ] Navigation updated with proper submenu structure
+- [ ] TypeScript interfaces documented
+- [ ] Modular vs monolithic approach justified
+
+This architectural evolution should be considered for all new component development.

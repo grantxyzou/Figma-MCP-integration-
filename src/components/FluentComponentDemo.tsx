@@ -11,6 +11,7 @@ import CardShowcase from './showcases/CardShowcase';
 import DropdownShowcase from './showcases/DropdownShowcase';
 import AccordionShowcase from './showcases/AccordionShowcase';
 import BadgeShowcase from './showcases/BadgeShowcase';
+import BreadcrumbShowcase from './showcases/BreadcrumbShowcase';
 import DataGridShowcase from './showcases/DataGridShowcase';
 import DrawerShowcase from './DrawerShowcase';
 
@@ -21,6 +22,7 @@ type ComponentView =
   | 'dropdown' 
   | 'accordion' 
   | 'badge' 
+  | 'breadcrumb'
   | 'card' 
   | 'datagrid' 
   | 'drawer';
@@ -73,6 +75,13 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
       description: 'Components for organizing and displaying content',
       icon: '📦',
       components: [
+        { 
+          key: 'breadcrumb' as ComponentView, 
+          name: 'Breadcrumb', 
+          description: 'Navigation component showing hierarchical location',
+          status: 'complete',
+          figmaNodeId: '133494:14994'
+        },
         { 
           key: 'card' as ComponentView, 
           name: 'Card', 
@@ -134,6 +143,8 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
         return <AccordionShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'badge':
         return <BadgeShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'breadcrumb':
+        return <BreadcrumbShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'datagrid':
         return <DataGridShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'drawer':

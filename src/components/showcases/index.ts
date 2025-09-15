@@ -1,9 +1,9 @@
 export { default as AccordionShowcase } from './AccordionShowcase';
 export { default as BadgeShowcase } from './BadgeShowcase';
+export { default as BreadcrumbShowcase } from './BreadcrumbShowcase';
 export { default as ButtonShowcase } from './ButtonShowcase';
 export { default as CardShowcase } from './CardShowcase';
 export { default as DataGridShowcase } from './DataGridShowcase';
-export { default as DrawerShowcase } from './DrawerShowcase';
 export { default as DropdownShowcase } from './DropdownShowcase';
 export { default as InputShowcase } from './InputShowcase';
 export { default as AzureStorageConfigurationShowcase } from './AzureStorageConfigurationShowcase';

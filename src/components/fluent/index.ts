@@ -8,11 +8,11 @@ import FluentAccordionComponent, { FluentAccordion } from './Accordion';
 import FluentDataGridComponent, { DataGrid as FluentDataGrid } from './DataGrid';
 import FluentCardComponent, { FluentCard } from './Card';
 import FluentDrawerComponent, { FluentDrawer, DrawerHeader, DrawerFooter } from './Drawer';
-import { StorageConfiguration } from './StorageConfiguration';
+import BreadcrumbComponent, { Breadcrumb } from './Breadcrumb';
 import AzureStorageConfiguration from './AzureStorageConfiguration';
 
 // Export named exports
-export { FluentButton, FluentDropdown, FluentInput, FluentAccordion, FluentDataGrid, FluentCard, FluentDrawer, DrawerHeader, DrawerFooter, StorageConfiguration, AzureStorageConfiguration };
+export { FluentButton, FluentDropdown, FluentInput, FluentAccordion, FluentDataGrid, FluentCard, FluentDrawer, DrawerHeader, DrawerFooter, Breadcrumb, AzureStorageConfiguration };
 
 // Export Badge components from Badge folder
 export * from './Badge';
@@ -25,6 +25,7 @@ export { default as FluentAccordionDefault } from './Accordion';
 export { default as FluentDataGridDefault } from './DataGrid';
 export { default as FluentCardDefault } from './Card';
 export { default as FluentDrawerDefault } from './Drawer';
+export { default as FluentBreadcrumbDefault } from './Breadcrumb';
 
 // Re-export with shorter names for convenience
 export { FluentButton as Button } from './Button';
@@ -45,8 +46,11 @@ export const FLUENT_COMPONENT_MAP = {
   '322781:5156': 'FluentCard',     // Card
   '145579:764': 'FluentDrawer',    // Drawer (Overlay)
   '145579:767': 'FluentDrawer',    // Drawer (Inline)
+  '133494:14994': 'FluentBreadcrumb', // Breadcrumb (Size=Large)
+  '133494:15005': 'FluentBreadcrumb', // Breadcrumb (Size=Medium)
+  '133494:15016': 'FluentBreadcrumb', // Breadcrumb (Size=Small)
   '8:8914': 'FluentButton',    // Create button variant
   '8:7313': 'FluentDropdown',  // Storage account dropdown
   '8:2562': 'FluentInput',     // Form field input
-  '33:10637': 'StorageConfiguration', // Azure Storage Configuration form
+  '33:10637': 'AzureStorageConfiguration', // Azure Storage Configuration form
 };

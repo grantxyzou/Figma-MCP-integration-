@@ -1,11 +1,12 @@
 // Component Registry for Figma MCP Integration
 // Maps Figma node IDs to React components with their variants
 
-import Button from './Button';
-import Dropdown from './Dropdown';
+import { FluentButton } from './fluent/Button';
+import { FluentDropdown } from './fluent/Dropdown';
+import { Breadcrumb } from './fluent/Breadcrumb';
 import FormField from './FormField';
 import AzureAssignmentForm from './AzureAssignmentForm';
-import { StorageConfiguration } from './fluent/StorageConfiguration';
+import AzureStorageConfiguration from './fluent/AzureStorageConfiguration';
 
 export interface ComponentMapping {
   nodeId: string;
@@ -25,7 +26,7 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
   {
     nodeId: '8:2564', // Subscription dropdown
     componentName: 'Dropdown',
-    component: Dropdown,
+    component: FluentDropdown,
     variants: {
       subscription: {
         placeholder: 'Select a subscription',
@@ -43,7 +44,7 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
   {
     nodeId: '8:7313', // Storage account dropdown
     componentName: 'Dropdown',
-    component: Dropdown,
+    component: FluentDropdown,
     variants: {
       storageAccount: {
         placeholder: 'Select a storage account',
@@ -62,7 +63,7 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
   {
     nodeId: '8:8903', // Cancel button
     componentName: 'Button',
-    component: Button,
+    component: FluentButton,
     variants: {
       cancel: {
         variant: 'secondary',
@@ -74,7 +75,7 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
   {
     nodeId: '8:8914', // Create button
     componentName: 'Button',
-    component: Button,
+    component: FluentButton,
     variants: {
       create: {
         variant: 'primary',
@@ -125,6 +126,56 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
     description: 'Assignment name form field container'
   },
 
+  // Breadcrumb Components
+  {
+    nodeId: '133494:14994', // Breadcrumb Large
+    componentName: 'Breadcrumb',
+    component: Breadcrumb,
+    variants: {
+      large: {
+        size: 'Large',
+        items: [
+          { label: 'Home', href: '/home' },
+          { label: 'Documents', href: '/home/documents' },
+          { label: 'Projects', current: true }
+        ]
+      }
+    },
+    description: 'Large breadcrumb navigation'
+  },
+  {
+    nodeId: '133494:15005', // Breadcrumb Medium
+    componentName: 'Breadcrumb',
+    component: Breadcrumb,
+    variants: {
+      medium: {
+        size: 'Medium',
+        items: [
+          { label: 'Home', href: '/home' },
+          { label: 'Documents', href: '/home/documents' },
+          { label: 'Projects', current: true }
+        ]
+      }
+    },
+    description: 'Medium breadcrumb navigation'
+  },
+  {
+    nodeId: '133494:15016', // Breadcrumb Small
+    componentName: 'Breadcrumb',
+    component: Breadcrumb,
+    variants: {
+      small: {
+        size: 'Small',
+        items: [
+          { label: 'Home', href: '/home' },
+          { label: 'Documents', href: '/home/documents' },
+          { label: 'Projects', current: true }
+        ]
+      }
+    },
+    description: 'Small breadcrumb navigation'
+  },
+
   // Full Form Component
   {
     nodeId: '7:3571', // Main Azure form
@@ -139,8 +190,8 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
   // Storage Configuration Component
   {
     nodeId: '33:10637', // Azure Storage Configuration form
-    componentName: 'StorageConfiguration',
-    component: StorageConfiguration,
+    componentName: 'AzureStorageConfiguration',
+    component: AzureStorageConfiguration,
     variants: {
       default: {},
       readOnly: {

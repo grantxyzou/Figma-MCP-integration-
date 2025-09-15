@@ -1243,3 +1243,159 @@
     transition: none;
   }
 }
+
+/* Fluent Breadcrumb Styles - Generated from Figma MCP integration */
+.fluent-breadcrumb {
+  font-family: var(--Font-Family-Base);
+  color: var(--Neutral-Foreground-1-Rest);
+  width: 100%;
+}
+
+.fluent-breadcrumb__list {
+  display: flex;
+  align-items: center;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 0;
+  flex-wrap: wrap;
+}
+
+.fluent-breadcrumb__item {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+
+.fluent-breadcrumb__link,
+.fluent-breadcrumb__text {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: var(--Border-Radius-Small);
+  transition: all 0.1s cubic-bezier(0.1, 0.9, 0.2, 1);
+  color: var(--Neutral-Foreground-2-Rest);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  font-family: var(--Font-Family-Base);
+  font-weight: var(--Font-Weight-Regular);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+.fluent-breadcrumb__link:hover:not(.fluent-breadcrumb__text--disabled),
+.fluent-breadcrumb__text:hover:not(.fluent-breadcrumb__text--disabled) {
+  background: var(--Neutral-Background-6-Hover);
+  color: var(--Neutral-Foreground-1-Rest);
+}
+
+.fluent-breadcrumb__link:active:not(.fluent-breadcrumb__text--disabled),
+.fluent-breadcrumb__text:active:not(.fluent-breadcrumb__text--disabled) {
+  background: var(--Neutral-Background-6-Pressed);
+}
+
+.fluent-breadcrumb__link:focus-visible,
+.fluent-breadcrumb__text:focus-visible {
+  outline: 2px solid var(--Brand-Stroke-1-Rest);
+  outline-offset: 2px;
+}
+
+.fluent-breadcrumb__item--current .fluent-breadcrumb__link,
+.fluent-breadcrumb__item--current .fluent-breadcrumb__text {
+  color: var(--Neutral-Foreground-1-Rest);
+  font-weight: var(--Font-Weight-Semibold);
+  cursor: default;
+}
+
+.fluent-breadcrumb__item--current .fluent-breadcrumb__link:hover,
+.fluent-breadcrumb__item--current .fluent-breadcrumb__text:hover {
+  background: transparent;
+}
+
+.fluent-breadcrumb__text--disabled {
+  color: var(--Neutral-Foreground-2-Rest);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.fluent-breadcrumb__text--disabled:hover {
+  background: transparent;
+}
+
+/* Breadcrumb Separators */
+.fluent-breadcrumb__separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--Neutral-Foreground-2-Rest);
+  margin: 0 var(--Spacing-XS);
+  flex-shrink: 0;
+}
+
+.fluent-breadcrumb__separator--chevron {
+  width: 20px;
+  height: 20px;
+}
+
+.fluent-breadcrumb__separator--chevron svg {
+  width: 6.5px;
+  height: 12px;
+}
+
+.fluent-breadcrumb__separator--slash {
+  font-size: inherit;
+  font-weight: var(--Font-Weight-Regular);
+}
+
+/* Breadcrumb Sizes */
+.fluent-breadcrumb--small .fluent-breadcrumb__link,
+.fluent-breadcrumb--small .fluent-breadcrumb__text {
+  padding: var(--Spacing-XXS) var(--Spacing-S);
+  font-size: 10px;
+  line-height: 14px;
+  height: 24px;
+}
+
+.fluent-breadcrumb--small .fluent-breadcrumb__separator {
+  font-size: 10px;
+}
+
+.fluent-breadcrumb--medium .fluent-breadcrumb__link,
+.fluent-breadcrumb--medium .fluent-breadcrumb__text {
+  padding: 5px var(--Spacing-S);
+  font-size: 14px;
+  line-height: 20px;
+  height: 32px;
+}
+
+.fluent-breadcrumb--medium .fluent-breadcrumb__separator {
+  font-size: 14px;
+}
+
+.fluent-breadcrumb--large .fluent-breadcrumb__link,
+.fluent-breadcrumb--large .fluent-breadcrumb__text {
+  padding: var(--Spacing-S) var(--Spacing-S);
+  font-size: 16px;
+  line-height: 22px;
+  height: 40px;
+}
+
+.fluent-breadcrumb--large .fluent-breadcrumb__separator {
+  font-size: 16px;
+}
+
+/* Overflow handling for ellipsis (...) items */
+.fluent-breadcrumb__text[aria-hidden="true"] {
+  padding: 0 var(--Spacing-XS);
+  font-weight: var(--Font-Weight-Semibold);
+  cursor: default;
+}
+
+.fluent-breadcrumb__text[aria-hidden="true"]:hover {
+  background: transparent;
+}

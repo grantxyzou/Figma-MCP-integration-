@@ -2,7 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { FluentButton } from './fluent/Button';
 import { FluentAccordion } from './fluent/Accordion';
 import { Card } from './fluent/Card';
+import { StatusBadge, StatusType } from './fluent/StatusBadge';
 import { ComponentShowcaseLayout, ComponentSection, ExampleGrid } from './shared/ComponentShowcaseLayout';
+import { useAppNavigation } from '../hooks/useAppNavigation';
 
 // Import showcase components for basic Fluent components only
 import ButtonShowcase from './showcases/ButtonShowcase';
@@ -11,11 +13,16 @@ import CardShowcase from './showcases/CardShowcase';
 import DropdownShowcase from './showcases/DropdownShowcase';
 import AccordionShowcase from './showcases/AccordionShowcase';
 import BadgeShowcase from './showcases/BadgeShowcase';
+import StatusBadgeShowcase from './showcases/StatusBadgeShowcase';
 import BreadcrumbShowcase from './showcases/BreadcrumbShowcase';
 import LabelShowcase from './showcases/LabelShowcase';
 import InfoLabelShowcase from './showcases/InfoLabelShowcase';
+import FieldShowcase from './showcases/FieldShowcase';
+import LinkShowcase from './showcases/LinkShowcase';
 import DataGridShowcase from './showcases/DataGridShowcase';
 import DrawerShowcase from './DrawerShowcase';
+import MenuShowcase from './showcases/MenuShowcase';
+import MessageBarShowcase from './showcases/MessageBarShowcase';
 
 type ComponentView = 
   | 'overview' 
@@ -27,9 +34,14 @@ type ComponentView =
   | 'breadcrumb'
   | 'label'
   | 'info-label'
+  | 'field'
+  | 'link'
   | 'card' 
   | 'datagrid' 
-  | 'drawer';
+  | 'drawer'
+  | 'menu'
+  | 'messagebar'
+  | 'statusbadge';
 
 interface FluentComponentDemoProps {
   className?: string;
@@ -38,11 +50,35 @@ interface FluentComponentDemoProps {
 
 export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ className = '', initialView = 'overview' }) => {
   const [currentView, setCurrentView] = useState<ComponentView>(initialView as ComponentView);
+  
+  // State management for component statuses
+  const [componentStatuses, setComponentStatuses] = useState<Record<string, StatusType>>({});
+
+  // Navigation hook for swipe gestures and browser back/forward
+  const navigation = useAppNavigation({
+    currentView,
+    onNavigate: (view: string) => setCurrentView(view as ComponentView),
+    canGoBack: () => currentView !== 'overview',
+    canGoForward: () => true
+  });
 
   // Update current view when initialView prop changes
   useEffect(() => {
     setCurrentView(initialView as ComponentView);
   }, [initialView]);
+
+  // Function to update component status
+  const updateComponentStatus = (componentKey: string, newStatus: StatusType) => {
+    setComponentStatuses(prev => ({
+      ...prev,
+      [componentKey]: newStatus
+    }));
+  };
+
+  // Get component status (fallback to 'complete' if not set)
+  const getComponentStatus = (componentKey: string): StatusType => {
+    return componentStatuses[componentKey] || 'complete';
+  };
 
   // Component categories for basic Fluent components only
   const componentCategories = [
@@ -80,11 +116,39 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
           figmaNodeId: '323059:755, 323059:756, 323059:757'
         },
         { 
+          key: 'field' as ComponentView, 
+          name: 'Field', 
+          description: 'Complete form field with label, input wrapper, and error handling',
+          status: 'complete',
+          figmaNodeId: '32182:95361, 32182:95337, 32182:95385'
+        },
+        { 
+          key: 'link' as ComponentView, 
+          name: 'Link', 
+          description: 'Navigation and external links with multiple style variants',
+          status: 'complete',
+          figmaNodeId: '6401:122465, 6401:122632, 6401:122744, 348781:2232'
+        },
+        { 
           key: 'dropdown' as ComponentView, 
           name: 'Dropdown', 
           description: 'Selection from a list of options',
           status: 'complete',
           figmaNodeId: 'TBD'
+        },
+        { 
+          key: 'menu' as ComponentView, 
+          name: 'Menu', 
+          description: 'Context menus and dropdown navigation',
+          status: 'complete',
+          figmaNodeId: '301778:9076, 299494:94449, 299494:94625'
+        },
+        { 
+          key: 'messagebar' as ComponentView, 
+          name: 'MessageBar', 
+          description: 'Display notifications and status messages',
+          status: 'complete',
+          figmaNodeId: '329958:31585'
         }
       ]
     },
@@ -141,6 +205,13 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
           description: 'Status indicators and labels',
           status: 'complete',
           figmaNodeId: 'TBD'
+        },
+        { 
+          key: 'statusbadge' as ComponentView, 
+          name: 'StatusBadge', 
+          description: 'Interactive status indicators with click-to-cycle functionality',
+          status: 'complete',
+          figmaNodeId: 'Custom component'
         }
       ]
     }
@@ -157,6 +228,10 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
         return <LabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'info-label':
         return <InfoLabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'field':
+        return <FieldShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'link':
+        return <LinkShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'card':
         return <CardShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'dropdown':
@@ -165,12 +240,18 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
         return <AccordionShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'badge':
         return <BadgeShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'statusbadge':
+        return <StatusBadgeShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'breadcrumb':
         return <BreadcrumbShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'datagrid':
         return <DataGridShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'drawer':
         return <DrawerShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'menu':
+        return <MenuShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'messagebar':
+        return <MessageBarShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       // For any other components that don't have dedicated showcases yet, show a placeholder
       default:
         return (
@@ -248,9 +329,9 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
           <Card
             size="small"
             style="outline"
-            title="TypeScript"
-            subtitle="Type Safety"
-            body="Complete type definitions for all components"
+            title={`${navigation.hasBack ? '◀' : '⚫'} ${navigation.hasForward ? '▶' : '⚫'}`}
+            subtitle="Navigation"
+            body={`Swipe gestures ${navigation.hasBack || navigation.hasForward ? 'available' : 'ready'} • ${navigation.historyLength} views`}
             showPrimaryAction={false}
             showSecondaryAction={false}
           />
@@ -338,16 +419,10 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
                       }}>
                         {component.name}
                       </h4>
-                      <span style={{
-                        fontSize: '12px',
-                        color: '#107c10',
-                        backgroundColor: '#f3f9f1',
-                        padding: '2px 8px',
-                        borderRadius: '12px',
-                        fontWeight: 500
-                      }}>
-                        {component.status}
-                      </span>
+                      <StatusBadge
+                        status={getComponentStatus(component.key)}
+                        onClick={(newStatus) => updateComponentStatus(component.key, newStatus)}
+                      />
                     </div>
                     <p style={{
                       fontSize: '14px',

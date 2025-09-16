@@ -6,6 +6,10 @@ import { FluentDropdown } from './fluent/Dropdown';
 import { Breadcrumb } from './fluent/Breadcrumb';
 import { FluentLabel } from './fluent/Label';
 import { InfoLabel } from './fluent/InfoLabel';
+import { Field } from './fluent/Field';
+import { Link } from './fluent/Link';
+import { Menu, MenuItem, MenuSplitItem, MenuSection, CompleteMenu } from './fluent/Menu';
+import { MessageBar, MessageBarTitle, MessageBarBody } from './fluent/MessageBar';
 import FormField from './FormField';
 import AzureAssignmentForm from './AzureAssignmentForm';
 import AzureStorageConfiguration from './fluent/AzureStorageConfiguration';
@@ -223,6 +227,111 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
     description: 'Large info label with tooltip (16px + 24px icon)'
   },
 
+  // Field Components (Unified Label + Input + Error)
+  {
+    nodeId: '32182:95361', // Field Small
+    componentName: 'Field',
+    component: Field,
+    variants: {
+      small: {
+        size: 'Small',
+        label: 'Label',
+        required: true,
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Small form field with label, info button, and error handling'
+  },
+  {
+    nodeId: '32182:95337', // Field Medium
+    componentName: 'Field',
+    component: Field,
+    variants: {
+      medium: {
+        size: 'Medium',
+        label: 'Label',
+        required: true,
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Medium form field with label, info button, and error handling'
+  },
+  {
+    nodeId: '32182:95385', // Field Large
+    componentName: 'Field',
+    component: Field,
+    variants: {
+      large: {
+        size: 'Large',
+        label: 'Label',
+        required: true,
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Large form field with label, info button, and error handling'
+  },
+
+  // Link Components
+  {
+    nodeId: '6401:122465', // Link Default Rest
+    componentName: 'Link',
+    component: Link,
+    variants: {
+      default: {
+        variant: 'default',
+        children: 'Link',
+        href: '#',
+        external: true
+      }
+    },
+    description: 'Default link with external icon'
+  },
+  {
+    nodeId: '6401:122632', // Link Subtle Rest
+    componentName: 'Link',
+    component: Link,
+    variants: {
+      subtle: {
+        variant: 'subtle',
+        children: 'Link',
+        href: '#',
+        external: true
+      }
+    },
+    description: 'Subtle link variant'
+  },
+  {
+    nodeId: '6401:122744', // Link OnBrand Rest
+    componentName: 'Link',
+    component: Link,
+    variants: {
+      onbrand: {
+        variant: 'onbrand',
+        children: 'Link',
+        href: '#',
+        external: true
+      }
+    },
+    description: 'OnBrand link variant'
+  },
+  {
+    nodeId: '348781:2232', // Link Inverted Rest
+    componentName: 'Link',
+    component: Link,
+    variants: {
+      inverted: {
+        variant: 'inverted',
+        children: 'Link',
+        href: '#',
+        external: true
+      }
+    },
+    description: 'Inverted link for dark backgrounds'
+  },
+
   // Label Components
   {
     nodeId: '7062:121114', // Label Small Regular
@@ -383,6 +492,285 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
       }
     },
     description: 'Complete Azure Storage configuration form with 13 settings'
+  },
+
+  // Menu Components
+  {
+    nodeId: '301778:9076', // Main Menu container
+    componentName: 'Menu',
+    component: Menu,
+    variants: {
+      default: {
+        open: true,
+        'aria-label': 'Main menu'
+      },
+      customContent: {
+        open: true,
+        customContent: true
+      }
+    },
+    description: 'Context menu container with items and sections'
+  },
+  {
+    nodeId: '299494:94466', // MenuItem Rest state
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      rest: {
+        children: 'Menu Item',
+        icon: true
+      }
+    },
+    description: 'Menu item in rest state'
+  },
+  {
+    nodeId: '319745:157888', // MenuItem Rest (Checked only)
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      restChecked: {
+        children: 'Menu Item',
+        icon: true,
+        selected: true
+      }
+    },
+    description: 'Menu item in rest state (checked)'
+  },
+  {
+    nodeId: '314466:2347', // MenuItem Hover state
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      hover: {
+        children: 'Menu Item',
+        icon: true
+      }
+    },
+    description: 'Menu item in hover state'
+  },
+  {
+    nodeId: '299494:94482', // MenuItem Pressed state
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      pressed: {
+        children: 'Menu Item',
+        icon: true
+      }
+    },
+    description: 'Menu item in pressed state'
+  },
+  {
+    nodeId: '299494:94498', // MenuItem Selected state
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      selected: {
+        children: 'Menu Item',
+        icon: true,
+        selected: true
+      }
+    },
+    description: 'Menu item in selected state'
+  },
+  {
+    nodeId: '299494:94514', // MenuItem Disabled state
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      disabled: {
+        children: 'Menu Item',
+        icon: true,
+        disabled: true
+      }
+    },
+    description: 'Menu item in disabled state'
+  },
+  {
+    nodeId: '319754:1140', // MenuItem Disabled (Checked only)
+    componentName: 'MenuItem',
+    component: MenuItem,
+    variants: {
+      disabledChecked: {
+        children: 'Menu Item',
+        icon: true,
+        disabled: true,
+        selected: true
+      }
+    },
+    description: 'Menu item in disabled state (checked)'
+  },
+  {
+    nodeId: '299494:94626', // MenuSplitItem Rest state
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      rest: {
+        children: 'Split Item',
+        icon: true
+      }
+    },
+    description: 'Menu split item in rest state'
+  },
+  {
+    nodeId: '319754:1119', // MenuSplitItem Rest (Checked only)
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      restChecked: {
+        children: 'Split Item',
+        icon: true,
+        selected: true
+      }
+    },
+    description: 'Menu split item in rest state (checked)'
+  },
+  {
+    nodeId: '299494:94642', // MenuSplitItem Hover state
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      hover: {
+        children: 'Split Item',
+        icon: true
+      }
+    },
+    description: 'Menu split item in hover state'
+  },
+  {
+    nodeId: '299494:94658', // MenuSplitItem Pressed state
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      pressed: {
+        children: 'Split Item',
+        icon: true
+      }
+    },
+    description: 'Menu split item in pressed state'
+  },
+  {
+    nodeId: '299494:94674', // MenuSplitItem Selected state
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      selected: {
+        children: 'Split Item',
+        icon: true,
+        selected: true
+      }
+    },
+    description: 'Menu split item in selected state'
+  },
+  {
+    nodeId: '299494:94690', // MenuSplitItem Disabled state
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      disabled: {
+        children: 'Split Item',
+        icon: true,
+        disabled: true
+      }
+    },
+    description: 'Menu split item in disabled state'
+  },
+  {
+    nodeId: '319754:1161', // MenuSplitItem Disabled (Checked only)
+    componentName: 'MenuSplitItem',
+    component: MenuSplitItem,
+    variants: {
+      disabledChecked: {
+        children: 'Split Item',
+        icon: true,
+        disabled: true,
+        selected: true
+      }
+    },
+    description: 'Menu split item in disabled state (checked)'
+  },
+  {
+    nodeId: '299494:95293', // MenuSection with title
+    componentName: 'MenuSection',
+    component: MenuSection,
+    variants: {
+      withTitle: {
+        title: 'Section Header',
+        children: null
+      }
+    },
+    description: 'Menu section with title'
+  },
+  {
+    nodeId: '299494:95358', // MenuSection divider
+    componentName: 'MenuSection',
+    component: MenuSection,
+    variants: {
+      divider: {
+        divider: true,
+        children: null
+      }
+    },
+    description: 'Menu section divider'
+  },
+  {
+    nodeId: '329640:13586', // Complete Menu variant with sections and shortcuts  
+    componentName: 'CompleteMenu',
+    component: CompleteMenu,
+    variants: {
+      default: {
+        customMenu: false,
+        sections: [
+          {
+            header: "Section header",
+            items: [
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", disabled: false, hasChevron: false },
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", disabled: false, hasChevron: false },
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", disabled: false, hasChevron: false }
+            ]
+          },
+          {
+            header: "Section header",
+            items: [
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", shortcut: "Shortcut text", hasChevron: true, disabled: false },
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", shortcut: "Shortcut text", hasChevron: true, disabled: false },
+              { text: "Action", icon: "http://localhost:3845/assets/3434db8031020a7cb07deb7044c4bc54e68f8fe2.svg", shortcut: "Shortcut text", hasChevron: true, disabled: false }
+            ]
+          }
+        ]
+      }
+    },
+    description: 'Complete menu with sections, headers, actions, and shortcuts'
+  },
+
+  // MessageBar Components
+  {
+    nodeId: '329958:31585', // MessageBar Success
+    componentName: 'MessageBar',
+    component: MessageBar,
+    variants: {
+      success: {
+        intent: 'success',
+        title: 'Saved settings',
+        body: 'Dialog saved successfully'
+      },
+      warning: {
+        intent: 'warning', 
+        title: 'Warning',
+        body: 'Please review your settings before continuing'
+      },
+      error: {
+        intent: 'error',
+        title: 'Error', 
+        body: 'Failed to save settings. Please try again'
+      },
+      info: {
+        intent: 'info',
+        title: 'Information',
+        body: 'Settings will be saved automatically'
+      }
+    },
+    description: 'Message notification bar with success, warning, error, and info intents'
   }
 ];
 

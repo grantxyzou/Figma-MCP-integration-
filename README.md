@@ -75,7 +75,7 @@ figma-mcp-integration/
 │   │   │   └── ...          # Other components
 │   │   ├── AdminDashboard.tsx    # Progress tracking dashboard
 │   │   ├── FluentImporter.tsx    # MCP component importer
-│   │   └── FluentShowcase.tsx    # Component demonstration
+│   │   └── FluentComponentDemo.tsx # Component demonstration
 │   ├── server/              # MCP server implementation
 │   └── App.tsx              # Main application
 ├── package.json             # Dependencies and scripts

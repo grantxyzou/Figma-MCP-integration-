@@ -72,9 +72,22 @@ export const ComponentShowcaseLayout: React.FC<ComponentShowcaseLayoutProps> = (
                 fontSize: '16px',
                 color: '#605e5c',
                 lineHeight: '1.5',
-                maxWidth: '800px'
+                maxWidth: '800px',
+                marginBottom: '8px'
               }}>
                 {description}
+              </p>
+              
+              {/* Navigation hint */}
+              <p style={{
+                fontSize: '14px',
+                lineHeight: '20px',
+                color: '#8a8886',
+                margin: 0,
+                fontStyle: 'italic',
+                maxWidth: '800px'
+              }}>
+                💡 Use trackpad swipes, browser back/forward, or ⌘←/⌘→ to navigate
               </p>
             </div>
           </div>

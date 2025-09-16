@@ -64,34 +64,24 @@ export const FluentBadge: React.FC<FluentBadgeProps> = ({
     className
   ].filter(Boolean).join(' ');
 
-  // Exact Figma structure: outermost div with 100% dimensions and responsive sizing
+  // Simplified responsive structure
   return (
     <div 
       className={badgeClasses}
       role="img"
       aria-label={typeof children === 'string' ? children : 'Badge'}
-      style={{
-        width: 'fit-content', // Text-responsive width
-        height: 'fit-content'  // Text-responsive height
-      }}
       {...props}
     >
-      <div className="fluent-badge__content">
-        {icon && (
-          <div className="fluent-badge__icon">
-            <div className="fluent-badge__icon-inner">
-              {icon}
-            </div>
-          </div>
-        )}
-        {children && (
-          <div className="fluent-badge__text">
-            <div className="fluent-badge__text-inner">
-              {children}
-            </div>
-          </div>
-        )}
-      </div>
+      {icon && (
+        <span className="fluent-badge__icon">
+          {icon}
+        </span>
+      )}
+      {children && (
+        <span className="fluent-badge__text">
+          {children}
+        </span>
+      )}
     </div>
   );
 };

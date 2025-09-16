@@ -18,6 +18,7 @@ import AzureStorageConfigurationShowcase from './showcases/AzureStorageConfigura
 import StorageConfigurationShowcase from './showcases/StorageConfigurationShowcase';
 import LabelShowcase from './showcases/LabelShowcase';
 import InfoLabelShowcase from './showcases/InfoLabelShowcase';
+import { LinkShowcase, MenuShowcase } from './showcases';
 
 type ShowcaseView = 
   | 'overview' 
@@ -33,7 +34,9 @@ type ShowcaseView =
   | 'azure-storage'
   | 'storage-configuration'
   | 'label'
-  | 'info-label';
+  | 'info-label'
+  | 'link'
+  | 'menu';
 
 interface FluentDemoHubProps {
   className?: string;
@@ -89,6 +92,20 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
           description: 'Label with info tooltip for contextual help',
           status: 'complete',
           figmaNodeId: '323059:755, 323059:756, 323059:757'
+        },
+        { 
+          key: 'link' as ShowcaseView, 
+          name: 'Link', 
+          description: 'Navigation and external link component',
+          status: 'complete',
+          figmaNodeId: '6401:122465, 6401:122632, 6401:122744, 348781:2232'
+        },
+        { 
+          key: 'menu' as ShowcaseView, 
+          name: 'Menu', 
+          description: 'Context menus and dropdown navigation',
+          status: 'complete',
+          figmaNodeId: '301778:9076, 299494:94449, 299494:94625'
         }
       ]
     },
@@ -200,6 +217,10 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
         return <LabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'info-label':
         return <InfoLabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'link':
+        return <LinkShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'menu':
+        return <MenuShowcase />;
       // For any other components that don't have dedicated showcases yet, show a placeholder
       default:
         return (

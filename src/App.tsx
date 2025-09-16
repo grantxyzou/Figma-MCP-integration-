@@ -5,6 +5,7 @@ import SimpleTest from './components/SimpleTest'
 import AzureStorageAssignmentForm from './components/AzureStorageAssignmentForm'
 import FluentComponentDemo from './components/FluentComponentDemo'
 import Playground from './components/Playground'
+import InfoLabelTest from './InfoLabelTest'
 
 // Simple error boundary component
 class AppErrorBoundary extends React.Component<
@@ -121,31 +122,17 @@ const AdminDashboard = React.lazy(() =>
 );
 
 function App() {
-  const [currentView, setCurrentView] = useState<'dashboard' | 'fluent' | 'test' | 'playground'>('test')
+  const [currentView, setCurrentView] = useState<'dashboard' | 'fluent' | 'test' | 'playground'>('fluent')
   const [navVisible, setNavVisible] = useState(true)
-  const [fluentMenuExpanded, setFluentMenuExpanded] = useState(false)
   const [playgroundMenuExpanded, setPlaygroundMenuExpanded] = useState(false)
-  const [fluentComponentView, setFluentComponentView] = useState<string>('overview')
   const [playgroundView, setPlaygroundView] = useState<string>('overview')
 
   const views = [
-    { key: 'test', label: 'Debug Test', icon: '🔧' },
+    { key: 'test', label: 'Debug & Status', icon: '🔧' },
     { 
       key: 'fluent', 
-      label: 'Fluent Component Demo', 
-      icon: '🎨',
-      hasSubmenu: true,
-      submenu: [
-        { key: 'fluent', label: 'Overview', icon: '📝' },
-        { key: 'button', label: 'Button', icon: '🔘' },
-        { key: 'input', label: 'Input', icon: '📝' },
-        { key: 'card', label: 'Card', icon: '🃏' },
-        { key: 'dropdown', label: 'Dropdown', icon: '📋' },
-        { key: 'accordion', label: 'Accordion', icon: '📖' },
-        { key: 'badge', label: 'Badge', icon: '🏷️' },
-        { key: 'datagrid', label: 'DataGrid', icon: '📊' },
-        { key: 'drawer', label: 'Drawer', icon: '📂' }
-      ]
+      label: 'Fluent Components', 
+      icon: '🎨'
     },
     { 
       key: 'playground', 
@@ -240,19 +227,8 @@ function App() {
               <button
                 onClick={() => {
                   if (view.hasSubmenu) {
-                    if (view.key === 'fluent') {
-                      setFluentMenuExpanded(!fluentMenuExpanded);
-                      setPlaygroundMenuExpanded(false);
-                      if (!fluentMenuExpanded) {
-                        setCurrentView(view.key as any);
-                        setFluentComponentView('overview');
-                      } else {
-                        setCurrentView(view.key as any);
-                        setFluentComponentView('overview');
-                      }
-                    } else if (view.key === 'playground') {
+                    if (view.key === 'playground') {
                       setPlaygroundMenuExpanded(!playgroundMenuExpanded);
-                      setFluentMenuExpanded(false);
                       if (!playgroundMenuExpanded) {
                         setCurrentView(view.key as any);
                         setPlaygroundView('overview');
@@ -263,9 +239,7 @@ function App() {
                     }
                   } else {
                     setCurrentView(view.key as any);
-                    setFluentMenuExpanded(false);
                     setPlaygroundMenuExpanded(false);
-                    setFluentComponentView('overview');
                     setPlaygroundView('overview');
                   }
                 }}
@@ -317,73 +291,13 @@ function App() {
                 {view.hasSubmenu && (
                   <span style={{ 
                     fontSize: '12px',
-                    transform: (view.key === 'fluent' && fluentMenuExpanded) || (view.key === 'playground' && playgroundMenuExpanded) ? 'rotate(180deg)' : 'rotate(0deg)',
+                    transform: (view.key === 'playground' && playgroundMenuExpanded) ? 'rotate(180deg)' : 'rotate(0deg)',
                     transition: 'transform 0.2s ease'
                   }}>
                     ▼
                   </span>
                 )}
               </button>
-
-              {/* Submenu for Fluent Component Demo */}
-              {view.key === 'fluent' && view.hasSubmenu && fluentMenuExpanded && (
-                <div style={{
-                  marginTop: '4px',
-                  marginLeft: '16px',
-                  paddingLeft: '16px',
-                  borderLeft: '2px solid #e1dfdd',
-                  display: 'flex',
-                  flexDirection: 'column',
-                  gap: '4px'
-                }}>
-                  {view.submenu?.map((submenuItem) => (
-                    <button
-                      key={submenuItem.key}
-                      onClick={() => {
-                        setCurrentView('fluent');
-                        setFluentComponentView(submenuItem.key);
-                      }}
-                      style={{
-                        padding: '8px 12px',
-                        backgroundColor: fluentComponentView === submenuItem.key ? '#f3f9ff' : 'transparent',
-                        color: fluentComponentView === submenuItem.key ? '#0078d4' : '#605e5c',
-                        border: fluentComponentView === submenuItem.key ? '1px solid #0078d4' : 'none',
-                        borderRadius: '4px',
-                        cursor: 'pointer',
-                        fontSize: '13px',
-                        fontFamily: 'Segoe UI, system-ui, sans-serif',
-                        fontWeight: fluentComponentView === submenuItem.key ? '500' : '400',
-                        transition: 'all 0.2s ease',
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: '6px',
-                        whiteSpace: 'nowrap',
-                        textAlign: 'left',
-                        width: '100%',
-                        outline: 'none'
-                      }}
-                      onMouseEnter={(e) => {
-                        if (fluentComponentView !== submenuItem.key) {
-                          e.currentTarget.style.backgroundColor = '#f8f9fa';
-                          e.currentTarget.style.color = '#242424';
-                        }
-                      }}
-                      onMouseLeave={(e) => {
-                        if (fluentComponentView !== submenuItem.key) {
-                          e.currentTarget.style.backgroundColor = 'transparent';
-                          e.currentTarget.style.color = '#605e5c';
-                        } else {
-                          e.currentTarget.style.backgroundColor = '#f3f9ff';
-                          e.currentTarget.style.color = '#0078d4';
-                        }
-                      }}
-                    >
-                      <span style={{ fontSize: '14px' }}>{submenuItem.icon}</span>
-                      <span>{submenuItem.label}</span>
-                    </button>
-                  ))}
-                </div>
-              )}
 
               {/* Submenu for Playground */}
               {view.key === 'playground' && view.hasSubmenu && playgroundMenuExpanded && (
@@ -453,7 +367,7 @@ function App() {
 
         {currentView === 'fluent' && (
           <React.Suspense fallback={<LoadingComponent message="Loading Fluent Component Demo..." />}>
-            <FluentComponentDemo initialView={fluentComponentView} />
+            <FluentComponentDemo />
           </React.Suspense>
         )}
 

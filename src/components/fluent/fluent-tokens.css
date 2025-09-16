@@ -1399,3 +1399,250 @@
 .fluent-breadcrumb__text[aria-hidden="true"]:hover {
   background: transparent;
 }
+
+/* ==========================================
+   FLUENT LABEL COMPONENT
+   ========================================== */
+
+/* Label Base Styles */
+.fluent-label {
+  font-family: var(--Font-Family-Base);
+  color: var(--Neutral-Foreground-1-Rest);
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  cursor: default;
+  user-select: none;
+  line-height: normal;
+}
+
+/* Label Size Variants */
+.fluent-label--size-small {
+  font-size: 12px;
+  line-height: 16px;
+  font-weight: var(--Font-Weight-Regular);
+}
+
+.fluent-label--size-medium {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: var(--Font-Weight-Regular);
+}
+
+.fluent-label--size-large {
+  font-size: 16px;
+  line-height: 22px;
+  font-weight: var(--Font-Weight-Regular);
+}
+
+/* Label Weight Variants */
+.fluent-label--weight-regular {
+  font-weight: var(--Font-Weight-Regular);
+}
+
+.fluent-label--weight-semibold {
+  font-weight: var(--Font-Weight-Semibold);
+}
+
+/* Label States */
+.fluent-label--disabled {
+  color: var(--Neutral-Foreground-2-Rest);
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Required Indicator */
+.fluent-label__required-indicator {
+  color: #d13438; /* Semantic red for required fields */
+  margin-left: var(--Spacing-XXS);
+  font-weight: var(--Font-Weight-Semibold);
+}
+
+/* Label Interactive States (when associated with form controls) */
+.fluent-label:hover:not(.fluent-label--disabled) {
+  cursor: pointer;
+}
+
+/* Focus styles for accessibility */
+.fluent-label:focus-visible {
+  outline: 2px solid var(--Brand-Stroke-1-Rest);
+  outline-offset: 2px;
+  border-radius: var(--Border-Radius-Small);
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .fluent-label {
+    color: ButtonText;
+  }
+  
+  .fluent-label--disabled {
+    color: GrayText;
+  }
+  
+  .fluent-label__required-indicator {
+    color: Highlight;
+  }
+}
+
+/* ===== INFO LABEL STYLES ===== */
+
+/* InfoLabel Container */
+.fluent-info-label {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--Spacing-XS);
+  font-family: var(--Font-Family-Base);
+  color: var(--Neutral-Foreground-1-Rest);
+}
+
+/* Info Button */
+.fluent-info-label__info-button {
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+  outline: none;
+  color: var(--Neutral-Foreground-2-Rest);
+}
+
+.fluent-info-label__info-button:hover {
+  background-color: var(--Neutral-Background-1-Hover);
+  color: var(--Neutral-Foreground-1-Rest);
+}
+
+.fluent-info-label__info-button:active {
+  background-color: var(--Neutral-Background-1-Pressed);
+}
+
+.fluent-info-label__info-button:focus-visible {
+  outline: 2px solid var(--Brand-Stroke-1-Rest);
+  outline-offset: 2px;
+}
+
+/* Info Button Sizes */
+.fluent-info-label--small .fluent-info-label__info-button {
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+}
+
+.fluent-info-label--medium .fluent-info-label__info-button {
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+}
+
+.fluent-info-label--large .fluent-info-label__info-button {
+  width: 24px;
+  height: 24px;
+  font-size: 16px;
+}
+
+/* Tooltip Container */
+.fluent-info-label__tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.fluent-info-label__tooltip-content {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-bottom: var(--Spacing-S);
+  padding: var(--Spacing-M) var(--Spacing-L);
+  background: var(--Neutral-Background-1-Rest);
+  border: 1px solid var(--Neutral-Stroke-1-Rest);
+  border-radius: var(--Border-Radius-Medium);
+  box-shadow: var(--Shadow-2);
+  max-width: 320px;
+  min-width: 200px;
+  z-index: 1000;
+  font-size: 14px;
+  line-height: 1.4;
+  color: var(--Neutral-Foreground-1-Rest);
+  white-space: normal;
+  word-wrap: break-word;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+  pointer-events: none;
+}
+
+.fluent-info-label__tooltip-content--visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.fluent-info-label__tooltip-content::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-top-color: var(--Neutral-Background-1-Rest);
+}
+
+.fluent-info-label__tooltip-content::before {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 7px solid transparent;
+  border-top-color: var(--Neutral-Stroke-1-Rest);
+  margin-top: -1px;
+}
+
+/* Tooltip Title */
+.fluent-info-label__tooltip-title {
+  font-weight: var(--Font-Weight-Semibold);
+  margin-bottom: var(--Spacing-XS);
+  color: var(--Neutral-Foreground-1-Rest);
+}
+
+/* Tooltip Body */
+.fluent-info-label__tooltip-body {
+  color: var(--Neutral-Foreground-2-Rest);
+}
+
+/* InfoLabel Disabled State */
+.fluent-info-label--disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.fluent-info-label--disabled .fluent-info-label__info-button {
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .fluent-info-label__info-button {
+    color: ButtonText;
+    border: 1px solid ButtonText;
+  }
+  
+  .fluent-info-label__tooltip-content {
+    background: Canvas;
+    color: CanvasText;
+    border-color: ButtonText;
+  }
+  
+  .fluent-info-label__tooltip-content::after {
+    border-top-color: Canvas;
+  }
+  
+  .fluent-info-label__tooltip-content::before {
+    border-top-color: ButtonText;
+  }
+}

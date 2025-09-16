@@ -6,6 +6,8 @@ export { default as CardShowcase } from './CardShowcase';
 export { default as DataGridShowcase } from './DataGridShowcase';
 export { default as DropdownShowcase } from './DropdownShowcase';
 export { default as InputShowcase } from './InputShowcase';
+export { default as LabelShowcase } from './LabelShowcase';
+export { default as InfoLabelShowcase } from './InfoLabelShowcase';
 export { default as AzureStorageConfigurationShowcase } from './AzureStorageConfigurationShowcase';
 export { default as StorageConfigurationShowcase } from './StorageConfigurationShowcase';
 export { default as StorageConfigurationModularShowcase } from './StorageConfigurationModularShowcase';

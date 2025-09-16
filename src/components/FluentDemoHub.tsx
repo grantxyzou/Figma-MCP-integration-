@@ -11,10 +11,13 @@ import CardShowcase from './showcases/CardShowcase';
 import DropdownShowcase from './showcases/DropdownShowcase';
 import AccordionShowcase from './showcases/AccordionShowcase';
 import BadgeShowcase from './showcases/BadgeShowcase';
+import BreadcrumbShowcase from './showcases/BreadcrumbShowcase';
 import DataGridShowcase from './showcases/DataGridShowcase';
 import DrawerShowcase from './DrawerShowcase';
 import AzureStorageConfigurationShowcase from './showcases/AzureStorageConfigurationShowcase';
 import StorageConfigurationShowcase from './showcases/StorageConfigurationShowcase';
+import LabelShowcase from './showcases/LabelShowcase';
+import InfoLabelShowcase from './showcases/InfoLabelShowcase';
 
 type ShowcaseView = 
   | 'overview' 
@@ -23,11 +26,14 @@ type ShowcaseView =
   | 'dropdown' 
   | 'accordion' 
   | 'badge' 
+  | 'breadcrumb'
   | 'card' 
   | 'datagrid' 
   | 'drawer'
   | 'azure-storage'
-  | 'storage-configuration';
+  | 'storage-configuration'
+  | 'label'
+  | 'info-label';
 
 interface FluentDemoHubProps {
   className?: string;
@@ -69,6 +75,20 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
           description: 'Selection from a list of options',
           status: 'complete',
           figmaNodeId: 'TBD'
+        },
+        { 
+          key: 'label' as ShowcaseView, 
+          name: 'Label', 
+          description: 'Text labels for form fields and UI elements',
+          status: 'complete',
+          figmaNodeId: '323017:2309, 323017:2310, 323017:2311'
+        },
+        { 
+          key: 'info-label' as ShowcaseView, 
+          name: 'InfoLabel', 
+          description: 'Label with info tooltip for contextual help',
+          status: 'complete',
+          figmaNodeId: '323059:755, 323059:756, 323059:757'
         }
       ]
     },
@@ -77,6 +97,13 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
       description: 'Components for organizing and displaying content',
       icon: '📦',
       components: [
+        { 
+          key: 'breadcrumb' as ShowcaseView, 
+          name: 'Breadcrumb', 
+          description: 'Navigation component showing hierarchical location',
+          status: 'complete',
+          figmaNodeId: '133494:14994'
+        },
         { 
           key: 'card' as ShowcaseView, 
           name: 'Card', 
@@ -159,6 +186,8 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
         return <AccordionShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'badge':
         return <BadgeShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'breadcrumb':
+        return <BreadcrumbShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'datagrid':
         return <DataGridShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'drawer':
@@ -167,6 +196,10 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
         return <AzureStorageConfigurationShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'storage-configuration':
         return <StorageConfigurationShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'label':
+        return <LabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'info-label':
+        return <InfoLabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       // For any other components that don't have dedicated showcases yet, show a placeholder
       default:
         return (
@@ -217,7 +250,7 @@ export const FluentDemoHub: React.FC<FluentDemoHubProps> = ({ className = '', in
           <Card
             size="small"
             style="filled"
-            title="9 Components"
+            title={`${componentCategories.reduce((acc, cat) => acc + cat.components.length, 0)} Components`}
             subtitle="Implemented"
             body="Complete with TypeScript, accessibility, and Fluent 2 styling"
             showPrimaryAction={false}

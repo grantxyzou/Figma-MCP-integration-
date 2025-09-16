@@ -271,8 +271,8 @@ Always review these key files to understand current state:
 5. `src/components/ComponentRegistry.ts` - Figma mappings
 
 ### Key Context Points
-- **Current Status**: 9 components implemented (64% complete)
-- **Active Components**: Button, Dropdown, Input, Accordion, Badge, PresenceBadge, DataGrid, Card, Drawer
+- **Current Status**: 10 components implemented (67% complete)
+- **Active Components**: Button, Dropdown, Input, Accordion, Badge, PresenceBadge, DataGrid, Card, Drawer, Breadcrumb
 - **Pending Priority**: Avatar, ProgressBar components
 - **Design System**: Microsoft Fluent 2 Web UI Kit
 - **Responsive Target**: MacBook Pro 16" optimized (1200px max width)
@@ -286,7 +286,65 @@ Always review these key files to understand current state:
 5. Create showcase and update navigation
 6. Update dashboard metrics and component registry
 
-## 11. Common Patterns
+## 12. Implementation Reference: Breadcrumb Component
+
+### Complete Implementation Example
+The Breadcrumb component serves as a reference for the complete Figma-to-React workflow:
+
+#### Figma Sources
+- **Small Variant**: Node ID `133494:14994`
+- **Medium Variant**: Node ID `133494:15005` 
+- **Large Variant**: Node ID `133494:15016`
+
+#### File Structure Created
+```
+src/components/fluent/Breadcrumb.tsx        # Main component
+src/components/showcases/BreadcrumbShowcase.tsx  # Interactive demo
+```
+
+#### Key Implementation Features
+1. **TypeScript Interfaces**:
+   ```typescript
+   interface BreadcrumbItem {
+     label: string;
+     href?: string;
+     current?: boolean;
+   }
+   
+   interface BreadcrumbProps {
+     items: BreadcrumbItem[];
+     size?: 'Small' | 'Medium' | 'Large';
+     separator?: 'chevron' | 'slash';
+     maxItems?: number;
+   }
+   ```
+
+2. **Size Variants**: Small (12px text), Medium (14px text), Large (16px text)
+3. **Separator Options**: Chevron (›) and Slash (/) separators
+4. **Accessibility**: ARIA navigation, keyboard support, screen reader compatibility
+5. **Truncation**: Automatic overflow handling with ellipsis
+
+#### Integration Points Updated
+- `src/components/ComponentRegistry.ts`: Added all three size variants
+- `src/components/FluentComponentDemo.tsx`: Added to "Layout & Content" category
+- `src/components/fluent/index.ts`: Added component export
+- `src/components/showcases/index.ts`: Added showcase export
+- `src/components/fluent/fluent-tokens.css`: Added breadcrumb styles
+
+#### Navigation Path
+**Fluent Component Demo → Layout & Content → Breadcrumb**
+
+#### MCP Workflow Demonstrated
+1. User provided Figma node IDs for three size variants
+2. Extracted design specifications using `mcp_figma_get_code()`
+3. Implemented React component with exact Figma fidelity
+4. Created comprehensive showcase with interactive examples
+5. Updated all integration points for navigation and registry
+6. Committed with detailed changelog preserving Figma mapping
+
+This implementation demonstrates the complete end-to-end workflow from Figma selection to deployed React component with full showcase integration.
+
+## 13. Common Patterns
 
 ### Component Props Pattern
 ```typescript

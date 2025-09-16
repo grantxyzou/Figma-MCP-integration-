@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ComponentShowcaseLayout, ComponentSection, ExampleGrid } from '../shared/ComponentShowcaseLayout';
-import { StorageConfiguration } from '../fluent/StorageConfiguration';
+import AzureStorageConfiguration from '../fluent/AzureStorageConfiguration';
 
 const StorageConfigurationShowcase = ({ onBackToShowcase }: { onBackToShowcase: () => void }) => {
   const [savedValues, setSavedValues] = useState<any>(null);
@@ -24,24 +24,7 @@ const StorageConfigurationShowcase = ({ onBackToShowcase }: { onBackToShowcase: 
     >
       <ComponentSection title="Interactive Form">
         <div className="bg-gray-50 p-6 rounded-lg">
-          <StorageConfiguration
-            initialValues={{
-              performance: 'Premium',
-              secureTransferRequired: true,
-              encryptionInTransitSMB: true,
-              encryptionInTransitNFS: true,
-              allowBlobAnonymousAccess: false,
-              allowStorageAccountKeyAccess: false,
-              allowSASExpiryInterval: false,
-              defaultToEntraAuthorization: false,
-              minimumTLSVersion: 'Version 1.2',
-              permittedCopyScope: 'From any storage account',
-              defaultAccessTier: 'Hot',
-              largeFileShares: false,
-            }}
-            onSave={handleSave}
-            onDiscard={handleDiscard}
-          />
+          <AzureStorageConfiguration />
         </div>
         {savedValues && (
           <div className="mt-4 p-4 bg-green-50 border border-green-200 rounded">
@@ -53,31 +36,15 @@ const StorageConfigurationShowcase = ({ onBackToShowcase }: { onBackToShowcase: 
         )}
       </ComponentSection>
 
-      <ComponentSection title="Read-only Mode">
+            <ComponentSection title="Read-only Mode">
         <div className="bg-gray-50 p-6 rounded-lg">
-          <StorageConfiguration
-            initialValues={{
-              performance: 'Standard',
-              secureTransferRequired: false,
-              encryptionInTransitSMB: false,
-              encryptionInTransitNFS: false,
-              allowBlobAnonymousAccess: true,
-              allowStorageAccountKeyAccess: true,
-              allowSASExpiryInterval: true,
-              defaultToEntraAuthorization: true,
-              minimumTLSVersion: 'Version 1.3',
-              permittedCopyScope: 'From storage accounts in the same resource group',
-              defaultAccessTier: 'Cool',
-              largeFileShares: true,
-            }}
-            readOnly
-          />
+          <AzureStorageConfiguration />
         </div>
       </ComponentSection>
 
       <ComponentSection title="Default Configuration">
         <div className="bg-gray-50 p-6 rounded-lg">
-          <StorageConfiguration />
+          <AzureStorageConfiguration />
         </div>
       </ComponentSection>
 

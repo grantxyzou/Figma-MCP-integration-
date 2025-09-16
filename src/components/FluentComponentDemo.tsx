@@ -12,6 +12,8 @@ import DropdownShowcase from './showcases/DropdownShowcase';
 import AccordionShowcase from './showcases/AccordionShowcase';
 import BadgeShowcase from './showcases/BadgeShowcase';
 import BreadcrumbShowcase from './showcases/BreadcrumbShowcase';
+import LabelShowcase from './showcases/LabelShowcase';
+import InfoLabelShowcase from './showcases/InfoLabelShowcase';
 import DataGridShowcase from './showcases/DataGridShowcase';
 import DrawerShowcase from './DrawerShowcase';
 
@@ -23,6 +25,8 @@ type ComponentView =
   | 'accordion' 
   | 'badge' 
   | 'breadcrumb'
+  | 'label'
+  | 'info-label'
   | 'card' 
   | 'datagrid' 
   | 'drawer';
@@ -60,6 +64,20 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
           description: 'Text input fields with validation',
           status: 'complete',
           figmaNodeId: '8:2580'
+        },
+        { 
+          key: 'label' as ComponentView, 
+          name: 'Label', 
+          description: 'Text labels for form elements and content',
+          status: 'complete',
+          figmaNodeId: '7062:121114'
+        },
+        { 
+          key: 'info-label' as ComponentView, 
+          name: 'InfoLabel', 
+          description: 'Label with info tooltip for contextual help',
+          status: 'complete',
+          figmaNodeId: '323059:755, 323059:756, 323059:757'
         },
         { 
           key: 'dropdown' as ComponentView, 
@@ -135,6 +153,10 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
         return <ButtonShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'input':
         return <InputShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'label':
+        return <LabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
+      case 'info-label':
+        return <InfoLabelShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'card':
         return <CardShowcase onBackToShowcase={() => setCurrentView('overview')} />;
       case 'dropdown':
@@ -184,135 +206,172 @@ export const FluentComponentDemo: React.FC<FluentComponentDemoProps> = ({ classN
 
   // Main overview page
   return (
-    <div className={`fluent-component-demo ${className}`} style={{ fontFamily: '"Segoe UI", system-ui, sans-serif' }}>
-      {/* Header */}
-      <div style={{
-        background: 'linear-gradient(135deg, #0078d4 0%, #106ebe 100%)',
-        color: 'white',
-        padding: '48px 32px',
-        textAlign: 'center'
-      }}>
-        <h1 style={{ 
-          fontSize: '48px', 
-          fontWeight: '300', 
-          margin: '0 0 16px 0',
-          textShadow: '0 2px 4px rgba(0,0,0,0.1)'
-        }}>
-          🎨 Fluent Component Demo
-        </h1>
-        <p style={{ 
-          fontSize: '18px', 
-          margin: '0 auto', 
-          opacity: 0.9,
-          maxWidth: '600px'
-        }}>
-          Explore individual Fluent UI components with interactive examples, usage guidelines, and best practices
-        </p>
-      </div>
+    <ComponentShowcaseLayout
+      title="🎨 Fluent Component Demo"
+      subtitle="Microsoft Design System Implementation (Core)"
+      description="Essential Fluent 2 Web components built from Figma specifications. Each component follows Microsoft's design system guidelines with authentic styling, accessibility features, and interactive states."
+      showBackButton={false}
+    >
+      {/* Quick Stats */}
+      <ComponentSection
+        title="Component Library Status"
+        description="Current implementation progress and component coverage"
+      >
+        <ExampleGrid columns={4}>
+          <Card
+            size="small"
+            style="filled"
+            title={`${componentCategories.reduce((acc, cat) => acc + cat.components.length, 0)} Components`}
+            subtitle="Core Set"
+            body="Essential components with TypeScript and Fluent 2 styling"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+          />
+          <Card
+            size="small"
+            style="outline"
+            title="100% Figma"
+            subtitle="Design Fidelity"
+            body="Pixel-perfect implementation from Figma specifications"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+          />
+          <Card
+            size="small"
+            style="filled"
+            title="WCAG 2.1 AA"
+            subtitle="Accessibility"
+            body="Full keyboard navigation and screen reader support"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+          />
+          <Card
+            size="small"
+            style="outline"
+            title="TypeScript"
+            subtitle="Type Safety"
+            body="Complete type definitions for all components"
+            showPrimaryAction={false}
+            showSecondaryAction={false}
+          />
+        </ExampleGrid>
+      </ComponentSection>
 
-      {/* Main Content */}
-      <div style={{ padding: '32px', maxWidth: '1200px', margin: '0 auto' }}>
-        {/* Quick Stats */}
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
-          gap: '24px',
-          marginBottom: '48px'
-        }}>
-          <Card
-            style="filled"
-            title="🧩 Components"
-            subtitle="Available Components"
-            body={`${componentCategories.reduce((acc, cat) => acc + cat.components.length, 0)} Fluent UI components ready to explore`}
-            showSecondaryAction={false}
-            primaryActionText="Explore All"
-            onPrimaryAction={() => {}}
-          />
-          <Card
-            style="filled"
-            title="📖 Documentation"
-            subtitle="Comprehensive Guides"
-            body="Each component includes usage examples, props documentation, and accessibility guidelines"
-            showSecondaryAction={false}
-            primaryActionText="Learn More"
-            onPrimaryAction={() => {}}
-          />
-          <Card
-            style="filled"
-            title="🎯 Interactive"
-            subtitle="Live Examples"
-            body="Try components in real-time with configurable props and see the code behind each example"
-            showSecondaryAction={false}
-            primaryActionText="Try Now"
-            onPrimaryAction={() => {}}
-          />
-        </div>
-
-        {/* Component Categories */}
-        {componentCategories.map((category, categoryIndex) => (
-          <div key={category.title} style={{ marginBottom: '48px' }}>
-            {/* Category Header */}
-            <div style={{ 
-              display: 'flex', 
-              alignItems: 'center', 
-              gap: '12px', 
-              marginBottom: '24px',
-              padding: '16px 0',
-              borderBottom: '2px solid #f0f0f0'
+      {/* Component Categories */}
+      <ComponentSection
+        title="Component Categories"
+        description="Explore core components organized by their purpose and usage patterns. Click on any component to view its detailed showcase."
+      >
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+          {componentCategories.map((category) => (
+            <div key={category.title} style={{
+              backgroundColor: 'white',
+              border: '1px solid #e1dfdd',
+              borderRadius: '8px',
+              overflow: 'hidden'
             }}>
-              <span style={{ fontSize: '32px' }}>{category.icon}</span>
-              <div>
-                <h2 style={{ 
-                  fontSize: '28px', 
-                  fontWeight: '600', 
-                  margin: '0 0 4px 0',
-                  color: '#323130'
-                }}>
-                  {category.title}
-                </h2>
-                <p style={{ 
-                  fontSize: '16px', 
-                  margin: 0, 
-                  color: '#605e5c'
-                }}>
-                  {category.description}
-                </p>
+              {/* Category Header */}
+              <div style={{
+                padding: '20px 24px',
+                backgroundColor: '#faf9f8',
+                borderBottom: '1px solid #e1dfdd'
+              }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                  <span style={{ fontSize: '24px' }}>{category.icon}</span>
+                  <div>
+                    <h3 style={{
+                      fontSize: '18px',
+                      fontWeight: 600,
+                      color: '#242424',
+                      margin: 0,
+                      marginBottom: '4px'
+                    }}>
+                      {category.title}
+                    </h3>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#605e5c',
+                      margin: 0
+                    }}>
+                      {category.description}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Components Grid */}
+              <div style={{
+                padding: '24px',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+                gap: '16px'
+              }}>
+                {category.components.map((component) => (
+                  <div
+                    key={component.key}
+                    style={{
+                      border: '1px solid #e1dfdd',
+                      borderRadius: '6px',
+                      padding: '16px',
+                      cursor: 'pointer',
+                      transition: 'all 0.2s ease',
+                      backgroundColor: 'white'
+                    }}
+                    onClick={() => setCurrentView(component.key)}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = '#0078d4';
+                      e.currentTarget.style.boxShadow = '0 2px 8px rgba(0, 120, 212, 0.15)';
+                      e.currentTarget.style.transform = 'translateY(-2px)';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = '#e1dfdd';
+                      e.currentTarget.style.boxShadow = 'none';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                    }}
+                  >
+                    <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '8px' }}>
+                      <h4 style={{
+                        fontSize: '16px',
+                        fontWeight: 600,
+                        color: '#242424',
+                        margin: 0
+                      }}>
+                        {component.name}
+                      </h4>
+                      <span style={{
+                        fontSize: '12px',
+                        color: '#107c10',
+                        backgroundColor: '#f3f9f1',
+                        padding: '2px 8px',
+                        borderRadius: '12px',
+                        fontWeight: 500
+                      }}>
+                        {component.status}
+                      </span>
+                    </div>
+                    <p style={{
+                      fontSize: '14px',
+                      color: '#605e5c',
+                      margin: '0 0 8px 0',
+                      lineHeight: '1.4'
+                    }}>
+                      {component.description}
+                    </p>
+                    <div style={{
+                      fontSize: '12px',
+                      color: '#8a8886',
+                      fontFamily: 'Monaco, "Cascadia Code", Consolas, monospace'
+                    }}>
+                      Figma: {component.figmaNodeId}
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
-
-            {/* Components in Category */}
-            <ExampleGrid>
-              {category.components.map((component) => (
-                <Card
-                  key={component.key}
-                  style="outline"
-                  title={component.name}
-                  subtitle={`Figma Node: ${component.figmaNodeId}`}
-                  body={component.description}
-                  primaryActionText="View Details"
-                  secondaryActionText="Quick Demo"
-                  onPrimaryAction={() => setCurrentView(component.key)}
-                  onSecondaryAction={() => setCurrentView(component.key)}
-                  showSecondaryAction={true}
-                />
-              ))}
-            </ExampleGrid>
-          </div>
-        ))}
-
-        {/* Footer */}
-        <div style={{
-          textAlign: 'center',
-          padding: '48px 0',
-          borderTop: '1px solid #edebe9',
-          marginTop: '48px'
-        }}>
-          <p style={{ color: '#605e5c', margin: 0 }}>
-            Built with ❤️ using Microsoft Fluent UI Design System
-          </p>
+          ))}
         </div>
-      </div>
-    </div>
+      </ComponentSection>
+    </ComponentShowcaseLayout>
   );
 };
 

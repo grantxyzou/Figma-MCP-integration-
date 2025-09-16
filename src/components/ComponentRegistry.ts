@@ -4,6 +4,8 @@
 import { FluentButton } from './fluent/Button';
 import { FluentDropdown } from './fluent/Dropdown';
 import { Breadcrumb } from './fluent/Breadcrumb';
+import { FluentLabel } from './fluent/Label';
+import { InfoLabel } from './fluent/InfoLabel';
 import FormField from './FormField';
 import AzureAssignmentForm from './AzureAssignmentForm';
 import AzureStorageConfiguration from './fluent/AzureStorageConfiguration';
@@ -174,6 +176,188 @@ export const FIGMA_COMPONENT_REGISTRY: ComponentMapping[] = [
       }
     },
     description: 'Small breadcrumb navigation'
+  },
+
+  // InfoLabel Components
+  {
+    nodeId: '323059:755', // InfoLabel Small
+    componentName: 'InfoLabel',
+    component: InfoLabel,
+    variants: {
+      small: {
+        size: 'Small',
+        children: 'Label',
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Small info label with tooltip (12px + 20px icon)'
+  },
+  {
+    nodeId: '323059:756', // InfoLabel Medium
+    componentName: 'InfoLabel',
+    component: InfoLabel,
+    variants: {
+      medium: {
+        size: 'Medium',
+        children: 'Label',
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Medium info label with tooltip (14px + 24px icon)'
+  },
+  {
+    nodeId: '323059:757', // InfoLabel Large
+    componentName: 'InfoLabel',
+    component: InfoLabel,
+    variants: {
+      large: {
+        size: 'Large',
+        weight: 'Semibold',
+        children: 'Label',
+        infoContent: 'This is helpful information about this field.',
+        infoTitle: 'More Information'
+      }
+    },
+    description: 'Large info label with tooltip (16px + 24px icon)'
+  },
+
+  // Label Components
+  {
+    nodeId: '7062:121114', // Label Small Regular
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      smallRegular: {
+        size: 'Small',
+        weight: 'Regular',
+        children: 'Label'
+      }
+    },
+    description: 'Small regular label (12px)'
+  },
+  {
+    nodeId: '7062:121116', // Label Small Semibold
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      smallSemibold: {
+        size: 'Small',
+        weight: 'Semibold',
+        children: 'Label'
+      }
+    },
+    description: 'Small semibold label (12px)'
+  },
+  {
+    nodeId: '7062:121126', // Label Medium Regular
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      mediumRegular: {
+        size: 'Medium',
+        weight: 'Regular',
+        children: 'Label'
+      }
+    },
+    description: 'Medium regular label (14px)'
+  },
+  {
+    nodeId: '7062:121128', // Label Medium Semibold
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      mediumSemibold: {
+        size: 'Medium',
+        weight: 'Semibold',
+        children: 'Label'
+      }
+    },
+    description: 'Medium semibold label (14px)'
+  },
+  {
+    nodeId: '7062:121240', // Label Large Semibold
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      largeSemibold: {
+        size: 'Large',
+        weight: 'Semibold',
+        children: 'Label'
+      }
+    },
+    description: 'Large semibold label (16px)'
+  },
+  {
+    nodeId: '13805:184496', // Label Small Regular Disabled
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      smallRegularDisabled: {
+        size: 'Small',
+        weight: 'Regular',
+        disabled: true,
+        children: 'Label'
+      }
+    },
+    description: 'Small regular label (disabled)'
+  },
+  {
+    nodeId: '13805:184498', // Label Small Semibold Disabled
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      smallSemiboldDisabled: {
+        size: 'Small',
+        weight: 'Semibold',
+        disabled: true,
+        children: 'Label'
+      }
+    },
+    description: 'Small semibold label (disabled)'
+  },
+  {
+    nodeId: '13805:184504', // Label Medium Regular Disabled
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      mediumRegularDisabled: {
+        size: 'Medium',
+        weight: 'Regular',
+        disabled: true,
+        children: 'Label'
+      }
+    },
+    description: 'Medium regular label (disabled)'
+  },
+  {
+    nodeId: '13805:184506', // Label Medium Semibold Disabled
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      mediumSemiboldDisabled: {
+        size: 'Medium',
+        weight: 'Semibold',
+        disabled: true,
+        children: 'Label'
+      }
+    },
+    description: 'Medium semibold label (disabled)'
+  },
+  {
+    nodeId: '13805:184510', // Label Large Semibold Disabled
+    componentName: 'Label',
+    component: FluentLabel,
+    variants: {
+      largeSemiboldDisabled: {
+        size: 'Large',
+        weight: 'Semibold',
+        disabled: true,
+        children: 'Label'
+      }
+    },
+    description: 'Large semibold label (disabled)'
   },
 
   // Full Form Component

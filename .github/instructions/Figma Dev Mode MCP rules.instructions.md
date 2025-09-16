@@ -12,7 +12,7 @@ This workspace implements Microsoft's Fluent 2 Design System as a React componen
 **Always read these files first to understand the current state:**
 - `README.md` - Project overview and component status
 - `src/components/AdminDashboard.tsx` - Current metrics and implementation progress
-- `src/components/FluentDemoHub.tsx` - Component catalog and showcase structure
+- `src/components/FluentComponentDemo.tsx` - Component catalog and showcase structure
 - `src/components/ComponentRegistry.ts` - Figma nodeId mappings
 
 ## 2. Directory Structure Standards
@@ -167,8 +167,8 @@ const ComponentNameShowcase = ({ onBackToShowcase }: { onBackToShowcase: () => v
 };
 ```
 
-### Add to FluentDemoHub
-Update `src/components/FluentDemoHub.tsx`:
+### Add to FluentComponentDemo
+Update `src/components/FluentComponentDemo.tsx`:
 1. Import the showcase component
 2. Add to `componentCategories` array
 3. Add case to `renderComponentShowcase()` switch statement
@@ -260,23 +260,56 @@ Before marking component complete:
 - [ ] Accessibility tested
 - [ ] Responsive behavior verified
 
-## 10. Context Preservation
+## 10. Icon and Asset Management
+
+### Icons from Figma MCP (REQUIRED)
+**All icons MUST come from Figma MCP - never use custom or hardcoded SVG icons.**
+
+#### Workflow for Icons:
+1. Select icon component in Figma
+2. Use `mcp_figma_get_code()` to extract authentic SVG asset URLs
+3. Extract the asset URLs from the response (format: `http://localhost:3845/assets/[hash].svg`)
+4. Use as constants in your component:
+
+```typescript
+// Example from InfoLabel implementation
+const INFO_ICON_SMALL = 'http://localhost:3845/assets/76840a3f1c1371b867a829bd7d96c20b497c5fd6.svg';
+const INFO_ICON_MEDIUM = 'http://localhost:3845/assets/78dc164d41f444140ae2e9a5278940c2f9415eba.svg';
+const INFO_ICON_LARGE = 'http://localhost:3845/assets/1bd13c9aac0f9ed113aba28b987034704648c44d.svg';
+
+// Use in component as img elements
+<img src={INFO_ICON_SMALL} alt="Info" className="info-icon" />
+```
+
+#### Asset Server Requirements:
+- Figma MCP server must be running on localhost:3845
+- All authentic design assets are served from this endpoint
+- Never approximate icons with custom SVG - always use authentic Figma assets
+- Asset URLs follow pattern: `http://localhost:3845/assets/[unique-hash].svg`
+
+#### Design Fidelity Benefits:
+- 100% accurate to Figma design
+- Automatic updates when Figma assets change
+- Consistent visual language across components
+- No manual SVG recreation required
+
+## 11. Context Preservation
 
 ### For New Sessions
 Always review these key files to understand current state:
 1. `README.md` - Project overview and component status
 2. `src/components/AdminDashboard.tsx` - Current metrics (line 1-100)
-3. `src/components/FluentDemoHub.tsx` - Component categories and navigation
+3. `src/components/FluentComponentDemo.tsx` - Component categories and navigation
 4. `src/App.tsx` - Navigation structure and routing
 5. `src/components/ComponentRegistry.ts` - Figma mappings
 
 ### Key Context Points
-- **Current Status**: 10 components implemented (67% complete)
-- **Active Components**: Button, Dropdown, Input, Accordion, Badge, PresenceBadge, DataGrid, Card, Drawer, Breadcrumb
-- **Pending Priority**: Avatar, ProgressBar components
+- **Current Status**: Multiple components implemented with authentic Figma assets
+- **Active Components**: Button, Dropdown, Input, Accordion, Badge, PresenceBadge, DataGrid, Card, Drawer, Breadcrumb, InfoLabel
+- **Asset Integration**: All icons sourced from Figma MCP server (localhost:3845)
 - **Design System**: Microsoft Fluent 2 Web UI Kit
 - **Responsive Target**: MacBook Pro 16" optimized (1200px max width)
-- **Navigation**: Hierarchical with Fluent Demo containing component submenus
+- **Navigation**: Simplified single-level component demo structure
 
 ### MCP Integration Workflow
 1. User selects component in Figma
@@ -286,63 +319,73 @@ Always review these key files to understand current state:
 5. Create showcase and update navigation
 6. Update dashboard metrics and component registry
 
-## 12. Implementation Reference: Breadcrumb Component
+## 11. Icon and Asset Management
+
+### Icons from Figma MCP (REQUIRED)
+**All icons MUST come from Figma MCP - never use custom or hardcoded SVG icons.**
+
+#### Workflow for Icons:
+1. Select icon component in Figma
+2. Use `mcp_figma_get_code()` to extract authentic SVG asset URLs
+3. Extract the asset URLs from the response (format: `http://localhost:3845/assets/[hash].svg`)
+4. Use as constants in your component:
+
+```typescript
+// Example from InfoLabel implementation
+const INFO_ICON_SMALL = 'http://localhost:3845/assets/76840a3f1c1371b867a829bd7d96c20b497c5fd6.svg';
+const INFO_ICON_MEDIUM = 'http://localhost:3845/assets/78dc164d41f444140ae2e9a5278940c2f9415eba.svg';
+const INFO_ICON_LARGE = 'http://localhost:3845/assets/1bd13c9aac0f9ed113aba28b987034704648c44d.svg';
+
+// Use in component as img elements
+<img src={INFO_ICON_SMALL} alt="Info" className="info-icon" />
+
+## 12. Implementation Reference: InfoLabel Component
 
 ### Complete Implementation Example
-The Breadcrumb component serves as a reference for the complete Figma-to-React workflow:
+The InfoLabel component serves as a reference for the complete Figma-to-React workflow with proper MCP asset integration:
 
 #### Figma Sources
-- **Small Variant**: Node ID `133494:14994`
-- **Medium Variant**: Node ID `133494:15005` 
-- **Large Variant**: Node ID `133494:15016`
+- **Small Icon**: Node ID `323059:755`
+- **Medium Icon**: Node ID `323059:756` 
+- **Large Icon**: Node ID `323059:757`
 
 #### File Structure Created
 ```
-src/components/fluent/Breadcrumb.tsx        # Main component
-src/components/showcases/BreadcrumbShowcase.tsx  # Interactive demo
+src/components/fluent/InfoLabel.tsx        # Main component with authentic Figma icons
+src/components/showcases/InfoLabelShowcase.tsx  # Interactive demo (if created)
 ```
 
 #### Key Implementation Features
 1. **TypeScript Interfaces**:
    ```typescript
-   interface BreadcrumbItem {
+   interface InfoLabelProps {
      label: string;
-     href?: string;
-     current?: boolean;
-   }
-   
-   interface BreadcrumbProps {
-     items: BreadcrumbItem[];
-     size?: 'Small' | 'Medium' | 'Large';
-     separator?: 'chevron' | 'slash';
-     maxItems?: number;
+     infoText?: string;
+     size?: 'small' | 'medium' | 'large';
+     required?: boolean;
+     disabled?: boolean;
    }
    ```
 
-2. **Size Variants**: Small (12px text), Medium (14px text), Large (16px text)
-3. **Separator Options**: Chevron (›) and Slash (/) separators
-4. **Accessibility**: ARIA navigation, keyboard support, screen reader compatibility
-5. **Truncation**: Automatic overflow handling with ellipsis
+2. **Authentic Figma Icons**: Uses real SVG assets from MCP server
+   ```typescript
+   const INFO_ICON_SMALL = 'http://localhost:3845/assets/76840a3f1c1371b867a829bd7d96c20b497c5fd6.svg';
+   const INFO_ICON_MEDIUM = 'http://localhost:3845/assets/78dc164d41f444140ae2e9a5278940c2f9415eba.svg';
+   const INFO_ICON_LARGE = 'http://localhost:3845/assets/1bd13c9aac0f9ed113aba28b987034704648c44d.svg';
+   ```
 
-#### Integration Points Updated
-- `src/components/ComponentRegistry.ts`: Added all three size variants
-- `src/components/FluentComponentDemo.tsx`: Added to "Layout & Content" category
-- `src/components/fluent/index.ts`: Added component export
-- `src/components/showcases/index.ts`: Added showcase export
-- `src/components/fluent/fluent-tokens.css`: Added breadcrumb styles
-
-#### Navigation Path
-**Fluent Component Demo → Layout & Content → Breadcrumb**
+3. **Size Variants**: Small (14px), Medium (16px), Large (18px) with corresponding icons
+4. **Interactive States**: Tooltip on hover, focus management
+5. **Accessibility**: ARIA labels, screen reader support, keyboard navigation
 
 #### MCP Workflow Demonstrated
-1. User provided Figma node IDs for three size variants
-2. Extracted design specifications using `mcp_figma_get_code()`
-3. Implemented React component with exact Figma fidelity
-4. Created comprehensive showcase with interactive examples
-5. Updated all integration points for navigation and registry
-6. Committed with detailed changelog preserving Figma mapping
+1. User selected icon components in Figma (nodes 323059:755-757)
+2. Used `mcp_figma_get_code()` to extract authentic SVG asset URLs
+3. Replaced custom SVG icons with real Figma assets for 100% design fidelity
+4. Implemented proper asset constants and img element usage
+5. Demonstrated complete MCP integration workflow
 
-This implementation demonstrates the complete end-to-end workflow from Figma selection to deployed React component with full showcase integration.
+This implementation demonstrates the **correct approach** for icon integration - always use authentic Figma assets via MCP, never custom approximations.
 
 ## 13. Common Patterns
 

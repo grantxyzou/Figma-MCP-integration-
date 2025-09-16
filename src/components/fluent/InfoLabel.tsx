@@ -5,24 +5,10 @@ import React, { useState } from 'react';
 // Medium InfoLabel: 323059:756  
 // Large InfoLabel: 323059:757
 
-// Info icon SVGs (inline for reliability)
-const InfoIconSmall = () => (
-  <svg width="12" height="12" viewBox="0 0 12 12" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M6 11A5 5 0 1 0 6 1a5 5 0 0 0 0 10ZM5.25 5.25V8.5h1.5V5.25h-1.5ZM6 4.5a.75.75 0 1 0 0-1.5.75.75 0 0 0 0 1.5Z"/>
-  </svg>
-);
-
-const InfoIconMedium = () => (
-  <svg width="14" height="14" viewBox="0 0 14 14" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M7 13A6 6 0 1 0 7 1a6 6 0 0 0 0 12ZM6.25 6.25V10h1.5V6.25h-1.5ZM7 5.25a.875.875 0 1 0 0-1.75.875.875 0 0 0 0 1.75Z"/>
-  </svg>
-);
-
-const InfoIconLarge = () => (
-  <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14ZM7.25 7.25V11.5h1.5V7.25h-1.5ZM8 6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/>
-  </svg>
-);
+// Real Figma SVG assets from MCP server
+const INFO_ICON_SMALL = "http://localhost:3845/assets/76840a3f1c1371b867a829bd7d96c20b497c5fd6.svg";
+const INFO_ICON_MEDIUM = "http://localhost:3845/assets/78dc164d41f444140ae2e9a5278940c2f9415eba.svg";
+const INFO_ICON_LARGE = "http://localhost:3845/assets/1bd13c9aac0f9ed113aba28b987034704648c44d.svg";
 
 export interface InfoLabelProps {
   /** The text content of the label */
@@ -68,15 +54,15 @@ export const InfoLabel: React.FC<InfoLabelProps> = ({
 }) => {
   const [showTooltip, setShowTooltip] = useState(false);
 
-  // Get the appropriate icon based on size
+  // Get the appropriate icon based on size using real Figma assets
   const getInfoIcon = () => {
     switch (size) {
       case 'Small':
-        return <InfoIconSmall />;
+        return <img src={INFO_ICON_SMALL} alt="Info" style={{ width: '12px', height: '12px' }} />;
       case 'Large':
-        return <InfoIconLarge />;
+        return <img src={INFO_ICON_LARGE} alt="Info" style={{ width: '16px', height: '16px' }} />;
       default:
-        return <InfoIconMedium />;
+        return <img src={INFO_ICON_MEDIUM} alt="Info" style={{ width: '14px', height: '14px' }} />;
     }
   };
 

@@ -12,6 +12,7 @@ import StorageConfigurationModularShowcase from './showcases/StorageConfiguratio
 // Import actual component demos
 import AzureAssignmentForm from './AzureAssignmentForm';
 import AzureStorageAssignmentForm from './AzureStorageAssignmentForm';
+import SnackSafeWebsite from './SnackSafeWebsite';
 
 type PlaygroundView = 
   | 'overview' 
@@ -20,7 +21,8 @@ type PlaygroundView =
   | 'storage-configuration'
   | 'modular-storage-config'
   | 'azure-assignment-form'
-  | 'storage-assignment-form';
+  | 'storage-assignment-form'
+  | 'snacksafe-website';
 
 interface PlaygroundProps {
   className?: string;
@@ -104,6 +106,22 @@ export const Playground: React.FC<PlaygroundProps> = ({ className = '', initialV
           technologies: ['React', 'TypeScript', 'Azure SDK']
         }
       ]
+    },
+    {
+      title: 'E-Commerce Websites',
+      description: 'Complete e-commerce experiences built from Figma designs with Fluent 2 components',
+      icon: '🛒',
+      applications: [
+        { 
+          key: 'snacksafe-website' as PlaygroundView, 
+          name: 'SnackSafe Website', 
+          description: 'Complete e-commerce website for comfort products with hidden storage - built from Figma design using Fluent 2',
+          status: 'complete',
+          figmaNodeId: '71:3133',
+          complexity: 'High',
+          technologies: ['React', 'TypeScript', 'Figma MCP', 'Fluent 2', 'E-Commerce']
+        }
+      ]
     }
   ];
 
@@ -144,6 +162,21 @@ export const Playground: React.FC<PlaygroundProps> = ({ className = '', initialV
             <ComponentSection title="Live Application" description="Interactive storage assignment form">
               <div style={{ border: '1px solid #d1d1d1', borderRadius: '8px', overflow: 'hidden' }}>
                 <AzureStorageAssignmentForm />
+              </div>
+            </ComponentSection>
+          </ComponentShowcaseLayout>
+        );
+      case 'snacksafe-website':
+        return (
+          <ComponentShowcaseLayout
+            title="SnackSafe Website"
+            subtitle="E-commerce site with Fluent 2 components"
+            description="Complete e-commerce website for innovative comfort products with hidden storage compartments. Built from Figma design using Fluent 2 Design System components."
+            onBackToShowcase={() => setCurrentView('overview')}
+          >
+            <ComponentSection title="Live E-Commerce Website" description="Full-featured shopping experience with cart, filtering, and responsive design">
+              <div style={{ border: '1px solid #d1d1d1', borderRadius: '8px', overflow: 'hidden' }}>
+                <SnackSafeWebsite />
               </div>
             </ComponentSection>
           </ComponentShowcaseLayout>
